@@ -6,17 +6,19 @@ import { IUsuario } from "src/app/models/usuario.interface";
 export class UsuarioService {
     constructor(
         @Inject(UsuarioRepository)
-        private readonly usuarioRepository: UsuarioRepository
-        ) 
-    {}
+        private readonly usuarioRepository: UsuarioRepository,
+    ) {}
 
     async login(login: LoginDTO): Promise<IUsuario> {
-        const usuario = await this.usuarioRepository.login(login.email, login.senha);
-        
-        if(!usuario){
+        const usuario = await this.usuarioRepository.login(
+            login.email,
+            login.senha,
+        );
+
+        if (!usuario) {
             throw new Error("Usuário ou senha inválidos");
         }
-        
+
         return usuario;
     }
 
