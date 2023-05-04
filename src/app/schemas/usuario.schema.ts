@@ -23,8 +23,10 @@ export class UsuarioSchemaDB implements IUsuario {
     @Prop({ required: true })
     dataNascimento: Date;
 
+    @Prop({ required: false })
     altura: string;
 
+    @Prop({ required: false })
     peso: string;
 }
 
