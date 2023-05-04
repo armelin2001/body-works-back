@@ -19,6 +19,13 @@ export class UsuarioSchemaDB implements IUsuario {
 
     @Prop({ required: true })
     cpf: string;
+
+    @Prop({ required: true })
+    dataNascimento: Date;
+
+    altura: string;
+
+    peso: string;
 }
 
 export const UsuarioSchema = SchemaFactory.createForClass(UsuarioSchemaDB);

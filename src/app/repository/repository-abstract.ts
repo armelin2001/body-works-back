@@ -39,7 +39,9 @@ export class RepositoryAbstract<entity, entityDTO>
     async atualizar(id: string, entity: entityDTO): Promise<entity> {
         return this.entityModel.findByIdAndUpdate(id, entity, { new: true });
     }
-
+    async teste(entity: entityDTO) {
+        return this.entityModel.updateOne(entity);
+    }
     async remover(id: string): Promise<entity> {
         return this.entityModel.findByIdAndDelete(id);
     }
