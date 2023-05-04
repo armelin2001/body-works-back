@@ -1,4 +1,9 @@
-import { IsMongoId, IsString, IsNotEmpty } from "@nestjs/class-validator";
+import {
+    IsMongoId,
+    IsString,
+    IsNotEmpty,
+    IsDate,
+} from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { IUsuario } from "src/app/models/usuario.interface";
 
@@ -27,6 +32,27 @@ export class UsuarioDTO implements IUsuario {
     @IsString({ message: "O campo perfil deve ser uma string" })
     @IsNotEmpty({ message: "O campo perfil é obrigatório" })
     perfil: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo genero deve ser uma string" })
+    @IsNotEmpty({ message: "O campo genero é obrigatório" })
+    genero: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo cpf deve ser uma string" })
+    @IsNotEmpty({ message: "O campo cpf é obrigatório" })
+    cpf: string;
+
+    @ApiProperty()
+    @IsDate({ message: "O campo dataNascimento deve ser uma data" })
+    @IsNotEmpty({ message: "O campo dataNascimento é obrigatório" })
+    dataNascimento: Date;
+
+    @ApiProperty()
+    peso: string;
+
+    @ApiProperty()
+    altura: string;
 }
 
 export class LoginDTO {

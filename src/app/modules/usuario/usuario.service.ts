@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
-import { LoginDTO } from "./dto/usario.dto";
+import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
 import { IUsuario } from "src/app/models/usuario.interface";
 
 export class UsuarioService {
@@ -25,5 +25,13 @@ export class UsuarioService {
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {
         // criptografar a senha
         return await this.usuarioRepository.criar(usuario);
+    }
+
+    async atualizar(usuario: UsuarioDTO, id: string): Promise<IUsuario> {
+        return await this.usuarioRepository.atualizar(id, usuario);
+    }
+
+    async obterPorId(id: string): Promise<IUsuario> {
+        return await this.usuarioRepository.obterPorId(id);
     }
 }

@@ -1,15 +1,25 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post, Patch, Param, Get } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
-import { LoginDTO } from "./dto/usario.dto";
+import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
 import { IUsuario } from "src/app/models/usuario.interface";
 
 @Controller("usuario")
 export class UsuarioController {
     constructor(private readonly usuarioService: UsuarioService) {}
 
+    @Get(":id")
+    async obterPorId(@Param("id") id: string): Promise<IUsuario> {
+        return await this.usuarioService.obterPorId(id);
+    }
+
     @Post()
     async cadastrar(@Body() usuario: IUsuario): Promise<IUsuario> {
         return await this.usuarioService.cadastrar(usuario);
+    }
+
+    @Patch(":id")
+    async atualizar(@Param("id") id: string, @Body() usuario: UsuarioDTO) {
+        return await this.usuarioService.atualizar(usuario, id);
     }
 
     @Post("login")
