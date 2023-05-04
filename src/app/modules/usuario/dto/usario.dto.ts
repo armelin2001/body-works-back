@@ -27,6 +27,16 @@ export class UsuarioDTO implements IUsuario {
     @IsString({ message: "O campo perfil deve ser uma string" })
     @IsNotEmpty({ message: "O campo perfil é obrigatório" })
     perfil: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo genero deve ser uma string" })
+    @IsNotEmpty({ message: "O campo genero é obrigatório" })
+    genero: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo cpf deve ser uma string" })
+    @IsNotEmpty({ message: "O campo cpf é obrigatório" })
+    cpf: string;
 }
 
 export class LoginDTO {
