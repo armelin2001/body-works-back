@@ -26,4 +26,22 @@ export class UsuarioRepository extends RepositoryAbstract<
             .exec();
         return usuario;
     }
+
+    async procurarPorEmailJaCadastrado(email: string): Promise<IUsuario> {
+        const usuario = await this.usuarioModel
+            .findOne({
+                email: email,
+            })
+            .exec();
+        return usuario;
+    }
+
+    async procurarPorCpfJaCadastrado(cpf: string): Promise<IUsuario> {
+        const usuario = await this.usuarioModel
+            .findOne({
+                cpf: cpf,
+            })
+            .exec();
+        return usuario;
+    }
 }

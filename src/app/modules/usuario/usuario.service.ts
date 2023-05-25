@@ -1,4 +1,4 @@
-import { Inject } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
 import { IUsuario } from "src/app/models/usuario.interface";
@@ -23,7 +23,26 @@ export class UsuarioService {
     }
 
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {
-        // criptografar a senha
+        const usuarioEmailJaCadastrado =
+            await this.usuarioRepository.procurarPorEmailJaCadastrado(
+                usuario.email,
+            );
+        const usuarioCpfJaCadastrado =
+            await this.usuarioRepository.procurarPorCpfJaCadastrado(
+                usuario.cpf,
+            );
+        if (usuarioEmailJaCadastrado) {
+            throw new HttpException(
+                "Email já cadastrado",
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+        if (usuarioCpfJaCadastrado) {
+            throw new HttpException(
+                "CPF já cadastrado",
+                HttpStatus.BAD_REQUEST,
+            );
+        }
         return await this.usuarioRepository.criar(usuario);
     }
 
