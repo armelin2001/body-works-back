@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Patch, Param, Get } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
-import { IUsuario } from "src/app/models/usuario.interface";
+import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
 
 @Controller("usuario")
 export class UsuarioController {

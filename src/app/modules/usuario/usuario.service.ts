@@ -1,8 +1,9 @@
-import { HttpException, HttpStatus, Inject } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
-import { IUsuario } from "src/app/models/usuario.interface";
+import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
 
+@Injectable()
 export class UsuarioService {
     constructor(
         @Inject(UsuarioRepository)

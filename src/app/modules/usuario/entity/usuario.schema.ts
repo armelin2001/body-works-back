@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { IUsuario } from "../models/usuario.interface";
-@Schema({ collection: "usuario" })
+import { IUsuario } from "./usuario.interface";
+@Schema({ collection: "usuario", timestamps: true })
 export class UsuarioSchemaDB implements IUsuario {
     @Prop({ required: true })
     nome: string;
