@@ -2,6 +2,7 @@ import { Body, Controller, Post, Patch, Param, Get } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
 import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
+import { IUsuarioAcademia } from "../usuario-academia/entity/usuario-academia.interface";
 
 @Controller("usuario")
 export class UsuarioController {
@@ -23,7 +24,7 @@ export class UsuarioController {
     }
 
     @Post("login")
-    async login(@Body() login: LoginDTO): Promise<IUsuario> {
+    async login(@Body() login: LoginDTO): Promise<IUsuario | IUsuarioAcademia> {
         return await this.usuarioService.login(login);
     }
 }

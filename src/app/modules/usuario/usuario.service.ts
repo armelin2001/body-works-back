@@ -2,25 +2,36 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
 import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
+import { UsuarioAcademiaRepository } from "../usuario-academia/usuario-academia.repository";
+import { IUsuarioAcademia } from "../usuario-academia/entity/usuario-academia.interface";
 
 @Injectable()
 export class UsuarioService {
     constructor(
         @Inject(UsuarioRepository)
         private readonly usuarioRepository: UsuarioRepository,
+        @Inject(UsuarioAcademiaRepository)
+        private readonly usuarioAcademiaRepository: UsuarioAcademiaRepository,
     ) {}
 
-    async login(login: LoginDTO): Promise<IUsuario> {
+    async login(login: LoginDTO): Promise<IUsuario | IUsuarioAcademia> {
         const usuario = await this.usuarioRepository.login(
             login.email,
             login.senha,
         );
+        const usuarioAcademia = await this.usuarioAcademiaRepository.login(
+            login.email,
+            login.senha,
+        );
 
-        if (!usuario) {
+        if (!usuario && !usuarioAcademia) {
             throw new Error("Usuário ou senha inválidos");
         }
-
-        return usuario;
+        if (usuario) {
+            return usuario;
+        } else {
+            return usuarioAcademia;
+        }
     }
 
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {
