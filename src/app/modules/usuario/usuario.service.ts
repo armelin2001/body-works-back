@@ -23,14 +23,23 @@ export class UsuarioService {
     }
 
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {
+        await this.validarCpfEmail(usuario.email, usuario.cpf);
+        return await this.usuarioRepository.criar(usuario);
+    }
+
+    async atualizar(usuario: UsuarioDTO, id: string): Promise<IUsuario> {
+        return await this.usuarioRepository.atualizar(id, usuario);
+    }
+
+    async obterPorId(id: string): Promise<IUsuario> {
+        return await this.usuarioRepository.obterPorId(id);
+    }
+
+    async validarCpfEmail(email: string, cpf: string) {
         const usuarioEmailJaCadastrado =
-            await this.usuarioRepository.procurarPorEmailJaCadastrado(
-                usuario.email,
-            );
+            await this.usuarioRepository.procurarPorEmailJaCadastrado(email);
         const usuarioCpfJaCadastrado =
-            await this.usuarioRepository.procurarPorCpfJaCadastrado(
-                usuario.cpf,
-            );
+            await this.usuarioRepository.procurarPorCpfJaCadastrado(cpf);
         if (usuarioEmailJaCadastrado) {
             throw new HttpException(
                 "Email já cadastrado",
@@ -43,14 +52,5 @@ export class UsuarioService {
                 HttpStatus.BAD_REQUEST,
             );
         }
-        return await this.usuarioRepository.criar(usuario);
-    }
-
-    async atualizar(usuario: UsuarioDTO, id: string): Promise<IUsuario> {
-        return await this.usuarioRepository.atualizar(id, usuario);
-    }
-
-    async obterPorId(id: string): Promise<IUsuario> {
-        return await this.usuarioRepository.obterPorId(id);
     }
 }
