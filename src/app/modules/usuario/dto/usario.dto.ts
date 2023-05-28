@@ -3,15 +3,17 @@ import {
     IsString,
     IsNotEmpty,
     IsDate,
+    IsOptional,
 } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
-import { IUsuario } from "src/app/models/usuario.interface";
+import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
 
 export class UsuarioDTO implements IUsuario {
     @ApiProperty()
     @IsString({ message: "O campo id deve ser uma string" })
+    @IsOptional()
     @IsMongoId({ message: "O campo id deve ser um ObjectId válido" })
-    id: string;
+    id?: string;
 
     @ApiProperty()
     @IsString({ message: "O campo nome deve ser uma string" })
