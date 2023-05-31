@@ -13,7 +13,14 @@ export class UsuarioAcademiaService {
     }
 
     async criar(usuarioAcademia: IUsuarioAcademia) {
-        return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+        if (usuarioAcademia.codigo === process.env.CODIGO_ACADEMIA) {
+            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+        } else {
+            throw new HttpException(
+                "Código da academia inválido",
+                HttpStatus.BAD_REQUEST,
+            );
+        }
     }
 
     async obterPorId(id: string) {

@@ -5,7 +5,7 @@ export interface IUsuario {
     cpf: string;
     email: string;
     senha: string;
-    perfil: string;
+    genero: string;
     peso?: string;
     altura?: string;
 }

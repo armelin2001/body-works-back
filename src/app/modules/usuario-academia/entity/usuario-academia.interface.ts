@@ -6,4 +6,6 @@ export interface IUsuarioAcademia {
     senha: string;
     codigo?: string;
     adm: boolean;
+    dataNascimento: Date;
+    genero: string;
 }
