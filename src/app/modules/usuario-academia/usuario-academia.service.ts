@@ -1,3 +1,4 @@
+import "src/utils/load-env";
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioAcademiaRepository } from "./usuario-academia.repository";
 import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
@@ -13,7 +14,15 @@ export class UsuarioAcademiaService {
     }
 
     async criar(usuarioAcademia: IUsuarioAcademia) {
-        if (usuarioAcademia.codigo === process.env.CODIGO_ACADEMIA) {
+        if (
+            Number(usuarioAcademia.codigo) ===
+                Number(process.env.CODIGO_ACADEMIA) &&
+            usuarioAcademia.adm === true
+        ) {
+            await this.validarCpfEmail(
+                usuarioAcademia.email,
+                usuarioAcademia.cpf,
+            );
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         } else {
             throw new HttpException(
