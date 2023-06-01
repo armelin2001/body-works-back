@@ -6,14 +6,17 @@ import { EquipamentoDTO } from "./dto/equipamento.dto";
 export class EquipamentoService {
     constructor(
         @Inject(EquipamentoRepository)
-        private readonly equipamentoRepository: EquipamentoRepository
-    ){}
-    
+        private readonly equipamentoRepository: EquipamentoRepository,
+    ) {}
+
     async cadastrar(equipamento: EquipamentoDTO): Promise<IEquipamento> {
         return await this.equipamentoRepository.criar(equipamento);
     }
 
-    async atualizar (equipamento: EquipamentoDTO, id: string): Promise<IEquipamento> {
+    async atualizar(
+        equipamento: EquipamentoDTO,
+        id: string,
+    ): Promise<IEquipamento> {
         return await this.equipamentoRepository.atualizar(id, equipamento);
     }
 
@@ -21,7 +24,7 @@ export class EquipamentoService {
         return await this.equipamentoRepository.obterPorId(id);
     }
 
-    async obterTodos(): Promise<{dados: IEquipamento[], quantidade: number}> {
+    async obterTodos(): Promise<{ dados: IEquipamento[]; quantidade: number }> {
         return await this.equipamentoRepository.obterTodos();
     }
 

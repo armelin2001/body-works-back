@@ -8,7 +8,9 @@ import { EquipamentoService } from "./equipamento.service";
 
 @Module({
     imports: [
-        DataBaseModule.forFeature([{ name: "Equipamento", schema: EquipamentoSchema}])
+        DataBaseModule.forFeature([
+            { name: "Equipamento", schema: EquipamentoSchema },
+        ]),
     ],
     controllers: [EquipamentoController],
     providers: [EquipamentoRepository, EquipamentoService],
