@@ -1,3 +1,4 @@
+import "src/utils/load-env";
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioAcademiaRepository } from "./usuario-academia.repository";
 import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
@@ -12,8 +13,30 @@ export class UsuarioAcademiaService {
         this.usuarioAcademiaRepository = usuarioAcademiaRepository;
     }
 
+    async obterTodos() {
+        return await this.usuarioAcademiaRepository.obterTodos();
+    }
+
     async criar(usuarioAcademia: IUsuarioAcademia) {
-        return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+        if (
+            Number(usuarioAcademia.codigo) ===
+                Number(process.env.CODIGO_ACADEMIA) &&
+            usuarioAcademia.adm === true
+        ) {
+            await this.validarCpfEmail(
+                usuarioAcademia.email,
+                usuarioAcademia.cpf,
+            );
+            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+        }
+        if (usuarioAcademia.adm === false) {
+            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+        } else {
+            throw new HttpException(
+                "Código da academia inválido",
+                HttpStatus.BAD_REQUEST,
+            );
+        }
     }
 
     async obterPorId(id: string) {

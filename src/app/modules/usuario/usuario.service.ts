@@ -25,7 +25,10 @@ export class UsuarioService {
         );
 
         if (!usuario && !usuarioAcademia) {
-            throw new Error("Usuário ou senha inválidos");
+            throw new HttpException(
+                "Usuário ou senha inválidos",
+                HttpStatus.NOT_FOUND,
+            );
         }
         if (usuario) {
             return usuario;

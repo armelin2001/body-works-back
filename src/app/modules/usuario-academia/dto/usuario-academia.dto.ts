@@ -38,4 +38,12 @@ export class UsuarioAcademiaDTO implements IUsuarioAcademia {
     @ApiProperty()
     @IsBoolean({ message: "O campo adm deve ser um booleano" })
     adm: boolean;
+
+    @ApiProperty()
+    @IsString({ message: "O campo dataNascimento deve ser uma data" })
+    dataNascimento: Date;
+
+    @ApiProperty()
+    @IsString({ message: "O campo genero deve ser uma string" })
+    genero: string;
 }
