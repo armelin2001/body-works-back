@@ -13,6 +13,10 @@ export class UsuarioAcademiaService {
         this.usuarioAcademiaRepository = usuarioAcademiaRepository;
     }
 
+    async obterTodos() {
+        return await this.usuarioAcademiaRepository.obterTodos();
+    }
+
     async criar(usuarioAcademia: IUsuarioAcademia) {
         if (
             Number(usuarioAcademia.codigo) ===
@@ -23,6 +27,9 @@ export class UsuarioAcademiaService {
                 usuarioAcademia.email,
                 usuarioAcademia.cpf,
             );
+            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+        }
+        if (usuarioAcademia.adm === false) {
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         } else {
             throw new HttpException(
