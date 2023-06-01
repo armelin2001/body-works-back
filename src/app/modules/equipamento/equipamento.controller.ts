@@ -1,10 +1,18 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+} from "@nestjs/common";
 import { EquipamentoService } from "./equipamento.service";
 import { IEquipamento } from "./entity/equipamento.interface";
 import { EquipamentoDTO } from "./dto/equipamento.dto";
 
 @Controller("equipamento")
-export class EquipamentoController{
+export class EquipamentoController {
     constructor(private readonly equipamentoService: EquipamentoService) {}
 
     @Get(":id")
@@ -13,7 +21,7 @@ export class EquipamentoController{
     }
 
     @Get()
-    async obterTodos(): Promise<{dados: IEquipamento[], quantidade: number}> {
+    async obterTodos(): Promise<{ dados: IEquipamento[]; quantidade: number }> {
         return await this.equipamentoService.obterTodos();
     }
 
@@ -23,7 +31,15 @@ export class EquipamentoController{
     }
 
     @Patch(":id")
-    async atualizar(@Param("id") id: string, @Body() equipamento: EquipamentoDTO) {
+    async atualizar(
+        @Param("id") id: string,
+        @Body() equipamento: EquipamentoDTO,
+    ) {
         return await this.equipamentoService.atualizar(equipamento, id);
+    }
+
+    @Delete(":id")
+    async remover(@Param("id") id: string) {
+        return await this.equipamentoService.remover(id);
     }
 }
