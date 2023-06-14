@@ -35,6 +35,11 @@ export class UsuarioAcademiaDTO implements IUsuarioAcademia {
     @IsOptional()
     codigo?: string;
 
+    @ApiProperty() 
+    @IsString({ message: "O campo nivelADM deve ser uma string" })
+    @IsOptional()
+    nivelADM?: string;
+
     @ApiProperty()
     @IsBoolean({ message: "O campo adm deve ser um booleano" })
     adm: boolean;

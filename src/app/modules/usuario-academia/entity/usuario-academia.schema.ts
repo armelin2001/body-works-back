@@ -18,6 +18,9 @@ export class UsuarioAcademiaSchemaDB implements IUsuarioAcademia {
     @Prop({ required: false })
     codigo?: string;
 
+    @Prop({ required: false })
+    nivelADM?: string;
+
     @Prop({ required: true })
     adm: boolean;
 
