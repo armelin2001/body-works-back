@@ -26,6 +26,12 @@ export class UsuarioAcademiaSchemaDB implements IUsuarioAcademia {
 
     @Prop({ required: true })
     genero: string;
+
+    @Prop({ required: true })
+    ativo?: boolean;
+
+    @Prop({ required: false })
+    salario: number;
 }
 
 export const UsuarioAcademiaSchema = SchemaFactory.createForClass(

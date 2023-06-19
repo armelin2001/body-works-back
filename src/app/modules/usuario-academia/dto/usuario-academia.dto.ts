@@ -1,6 +1,7 @@
 import {
     IsBoolean,
     IsMongoId,
+    IsNumber,
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
@@ -46,4 +47,11 @@ export class UsuarioAcademiaDTO implements IUsuarioAcademia {
     @ApiProperty()
     @IsString({ message: "O campo genero deve ser uma string" })
     genero: string;
+
+    @ApiProperty()
+    ativo: boolean;
+
+    @ApiProperty()
+    @IsNumber({}, { message: "O campo salario deve ser um número" })
+    salario: number;
 }
