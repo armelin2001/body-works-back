@@ -5,5 +5,6 @@ export const Env = {
     },
     server: {
         port: process.env.PORT,
+        hashSecret: process.env.HASH_SECRET,
     },
 };

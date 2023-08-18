@@ -3,12 +3,19 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioAcademiaRepository } from "./usuario-academia.repository";
 import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
 import { UsuarioAcademiaDTO } from "./dto/usuario-academia.dto";
+import { AcessoRepository } from "../acessos/acesso.repository";
+import { RolesAceso } from "src/utils/constants/roles-acesso";
+import { AcessoService } from "../acessos/acesso.service";
 
 @Injectable()
 export class UsuarioAcademiaService {
     constructor(
         @Inject(UsuarioAcademiaRepository)
         private readonly usuarioAcademiaRepository: UsuarioAcademiaRepository,
+        @Inject(AcessoRepository)
+        private readonly acessoRepository: AcessoRepository,
+        @Inject(AcessoService)
+        private readonly acessoService: AcessoService,
     ) {
         this.usuarioAcademiaRepository = usuarioAcademiaRepository;
     }
@@ -27,10 +34,26 @@ export class UsuarioAcademiaService {
                 usuarioAcademia.email,
                 usuarioAcademia.cpf,
             );
-            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+            const acesso = await this.acessoService.cadastrar({
+                email: usuarioAcademia.email,
+                senha: usuarioAcademia.senha,
+                role: RolesAceso.ADMIN,
+            });
+            return await this.usuarioAcademiaRepository.criar({
+                ...usuarioAcademia,
+                idAcesso: acesso.id,
+            });
         }
         if (usuarioAcademia.adm === false) {
-            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
+            const acesso = await this.acessoRepository.criar({
+                email: usuarioAcademia.email,
+                senha: usuarioAcademia.senha,
+                role: RolesAceso.INSTRUTOR,
+            });
+            return await this.usuarioAcademiaRepository.criar({
+                ...usuarioAcademia,
+                idAcesso: acesso.id,
+            });
         } else {
             throw new HttpException(
                 "Código da academia inválido",

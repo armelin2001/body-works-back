@@ -28,6 +28,9 @@ export class UsuarioSchemaDB implements IUsuario {
 
     @Prop({ required: false })
     peso: string;
+
+    @Prop({ required: true })
+    idAcesso: string;
 }
 
 export const UsuarioSchema = SchemaFactory.createForClass(UsuarioSchemaDB);

@@ -8,4 +8,5 @@ export interface IUsuarioAcademia {
     adm: boolean;
     dataNascimento: Date;
     genero: string;
+    idAcesso?: string;
 }
