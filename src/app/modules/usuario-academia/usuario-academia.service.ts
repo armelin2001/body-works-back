@@ -39,6 +39,8 @@ export class UsuarioAcademiaService {
                 senha: usuarioAcademia.senha,
                 role: RolesAceso.ADMIN,
             });
+            delete usuarioAcademia.senha;
+            delete usuarioAcademia.email;
             return await this.usuarioAcademiaRepository.criar({
                 ...usuarioAcademia,
                 idAcesso: acesso.id,
@@ -50,6 +52,8 @@ export class UsuarioAcademiaService {
                 senha: usuarioAcademia.senha,
                 role: RolesAceso.INSTRUTOR,
             });
+            delete usuarioAcademia.senha;
+            delete usuarioAcademia.email;
             return await this.usuarioAcademiaRepository.criar({
                 ...usuarioAcademia,
                 idAcesso: acesso.id,
@@ -79,9 +83,7 @@ export class UsuarioAcademiaService {
 
     async validarCpfEmail(email: string, cpf: string) {
         const usuarioAcademiaEmailJaCadastrado =
-            await this.usuarioAcademiaRepository.procurarPorEmailJaCadastrado(
-                email,
-            );
+            await this.acessoService.validaEmail(email);
         const usuarioAcademiaCpfJaCadastrado =
             await this.usuarioAcademiaRepository.procurarPorCpfJaCadastrado(
                 cpf,

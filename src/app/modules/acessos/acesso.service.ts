@@ -11,7 +11,7 @@ export class AcessoService {
     ) {}
 
     async cadastrar(acesso: IAcesso): Promise<IAcesso> {
-        const salt = process.env.HASH_SECRET;
+        const salt = Number(process.env.HASH_SECRET);
         const hash = await bcrypt.hash(acesso.senha, salt);
         acesso.senha = hash;
         return await this.acessoRepository.criar(acesso);
@@ -23,5 +23,15 @@ export class AcessoService {
 
     async atualizar(acesso: IAcesso, id: string): Promise<IAcesso> {
         return await this.acessoRepository.atualizar(id, acesso);
+    }
+
+    async validaEmail(email: string): Promise<IAcesso | undefined> {
+        return await this.acessoRepository.procuraEmailCadastrado(email);
+    }
+
+    async procuraUsuario(email: string, senha: string) {
+        const salt = Number(process.env.HASH_SECRET);
+        const hash = await bcrypt.hash(senha, salt);
+        return await this.acessoRepository.procuraAcesso(email, hash);
     }
 }

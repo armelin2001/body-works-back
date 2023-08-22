@@ -9,11 +9,11 @@ export class UsuarioAcademiaSchemaDB implements IUsuarioAcademia {
     @Prop({ required: true })
     cpf: string;
 
-    @Prop({ required: true })
-    email: string;
+    @Prop({ required: false })
+    email?: string;
 
-    @Prop({ required: true })
-    senha: string;
+    @Prop({ required: false })
+    senha?: string;
 
     @Prop({ required: false })
     codigo?: string;

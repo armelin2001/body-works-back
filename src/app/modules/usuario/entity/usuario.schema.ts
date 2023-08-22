@@ -5,11 +5,11 @@ export class UsuarioSchemaDB implements IUsuario {
     @Prop({ required: true })
     nome: string;
 
-    @Prop({ required: true })
-    email: string;
+    @Prop({ required: false })
+    email?: string;
 
-    @Prop({ required: true })
-    senha: string;
+    @Prop({ required: false })
+    senha?: string;
 
     @Prop({ required: true })
     perfil: string;

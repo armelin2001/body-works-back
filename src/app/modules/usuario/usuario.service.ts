@@ -22,11 +22,11 @@ export class UsuarioService {
     ) {}
 
     async login(login: LoginDTO): Promise<IUsuario | IUsuarioAcademia> {
-        // refatorar para fazer a busca pela tabela de acesso
-        const acesso = await this.acessoRepository.procuraAcesso(
+        const acesso = await this.acessoService.procuraUsuario(
             login.email,
             login.senha,
         );
+        // VERIFICAR PROBLEMA COM LOGIN
         if (!acesso) {
             throw new HttpException(
                 "Usuário ou senha inválidos",
@@ -54,6 +54,7 @@ export class UsuarioService {
             senha: usuario.senha,
             role: RolesAceso.USUARIO,
         });
+
         delete usuario.senha;
         delete usuario.email;
         return await this.usuarioRepository.criar({
@@ -102,8 +103,9 @@ export class UsuarioService {
     }
 
     async validarCpfEmail(email: string, cpf: string) {
-        const usuarioEmailJaCadastrado =
-            await this.usuarioRepository.procurarPorEmailJaCadastrado(email);
+        const usuarioEmailJaCadastrado = await this.acessoService.validaEmail(
+            email,
+        );
         const usuarioCpfJaCadastrado =
             await this.usuarioRepository.procurarPorCpfJaCadastrado(cpf);
         if (usuarioEmailJaCadastrado) {
