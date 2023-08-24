@@ -3,9 +3,10 @@ export interface IUsuario {
     nome: string;
     dataNascimento: Date;
     cpf: string;
-    email: string;
-    senha: string;
+    email?: string;
+    senha?: string;
     genero: string;
     peso?: string;
     altura?: string;
+    idAcesso?: string;
 }
