@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { AcessoRepository } from "./acesso.repository";
 import { IAcesso } from "./entity/acesso.interface";
 import * as bcrypt from "bcrypt";
@@ -30,8 +30,25 @@ export class AcessoService {
     }
 
     async procuraUsuario(email: string, senha: string) {
-        const salt = Number(process.env.HASH_SECRET);
-        const hash = await bcrypt.hash(senha, salt);
-        return await this.acessoRepository.procuraAcesso(email, hash);
+        const acessoUsuario =
+            await this.acessoRepository.procuraEmailCadastrado(email);
+
+        if (!acessoUsuario) {
+            throw new HttpException(
+                "Usuário ou senha inválidos",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        await bcrypt.compare(senha, acessoUsuario.senha).then((res) => {
+            if (res === false) {
+                throw new HttpException(
+                    "Usuário ou senha inválidos",
+                    HttpStatus.NOT_FOUND,
+                );
+            }
+        });
+
+        return acessoUsuario;
     }
 }

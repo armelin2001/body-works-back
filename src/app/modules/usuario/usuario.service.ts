@@ -26,7 +26,7 @@ export class UsuarioService {
             login.email,
             login.senha,
         );
-        // VERIFICAR PROBLEMA COM LOGIN
+
         if (!acesso) {
             throw new HttpException(
                 "Usuário ou senha inválidos",
@@ -52,7 +52,7 @@ export class UsuarioService {
         const acesso = await this.acessoService.cadastrar({
             email: usuario.email,
             senha: usuario.senha,
-            role: RolesAceso.USUARIO,
+            role: RolesAceso.usuario,
         });
 
         delete usuario.senha;
@@ -74,7 +74,7 @@ export class UsuarioService {
                 await this.acessoRepository.atualizar(acesso.id, {
                     email: usuario.email,
                     senha: usuario.senha,
-                    role: RolesAceso.USUARIO,
+                    role: RolesAceso.usuario,
                 });
             }
 
@@ -82,7 +82,7 @@ export class UsuarioService {
                 await this.acessoRepository.atualizar(acesso.id, {
                     email: usuario.email,
                     senha: usuarioPorId.senha,
-                    role: RolesAceso.USUARIO,
+                    role: RolesAceso.usuario,
                 });
             }
 
@@ -90,7 +90,7 @@ export class UsuarioService {
                 await this.acessoRepository.atualizar(acesso.id, {
                     email: usuarioPorId.email,
                     senha: usuario.senha,
-                    role: RolesAceso.USUARIO,
+                    role: RolesAceso.usuario,
                 });
             }
         }

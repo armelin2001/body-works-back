@@ -37,7 +37,7 @@ export class UsuarioAcademiaService {
             const acesso = await this.acessoService.cadastrar({
                 email: usuarioAcademia.email,
                 senha: usuarioAcademia.senha,
-                role: RolesAceso.ADMIN,
+                role: RolesAceso.adm,
             });
             delete usuarioAcademia.senha;
             delete usuarioAcademia.email;
@@ -50,7 +50,7 @@ export class UsuarioAcademiaService {
             const acesso = await this.acessoRepository.criar({
                 email: usuarioAcademia.email,
                 senha: usuarioAcademia.senha,
-                role: RolesAceso.INSTRUTOR,
+                role: RolesAceso.instrutor,
             });
             delete usuarioAcademia.senha;
             delete usuarioAcademia.email;
