@@ -31,10 +31,25 @@ export class UsuarioService {
             );
         }
         if (usuario) {
+            if (usuario.statusPagamento === "cancelado") {
+                throw new HttpException(
+                    "Usuário cancelado. Entre em contato com um supervisor da academia",
+                    HttpStatus.FORBIDDEN
+                );
+            }
             return usuario;
         } else {
             return usuarioAcademia;
         }
+    }
+
+    // Coletar todos os usuários e alterar status de pagamento 
+    async obterTodos(): Promise<{ dados: IUsuario[]; quantidade: number }> {
+        return await this.usuarioRepository.obterTodos();
+    }
+
+    async atualizarStatusPagamento(id: string, statusPagamento: string): Promise<IUsuario> {
+        return await this.usuarioRepository.atualizarStatusPagamento(id, statusPagamento);
     }
 
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {

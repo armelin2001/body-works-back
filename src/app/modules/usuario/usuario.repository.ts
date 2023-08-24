@@ -17,6 +17,19 @@ export class UsuarioRepository extends RepositoryAbstract<
         super(usuarioModel);
     }
 
+    // Recuperar todos os usuários para listagem e update em statusPagamento
+    async obterTodos(): Promise<{ dados: IUsuario[]; quantidade: number }> {
+        const usuarios = await this.usuarioModel.find().exec();
+        return {
+            dados: usuarios,
+            quantidade: usuarios.length
+        };
+    }
+
+    async atualizarStatusPagamento(id: string, statusPagamento: string): Promise<IUsuario> {
+        return await this.usuarioModel.findByIdAndUpdate(id, { statusPagamento }, { new: true }).exec();
+    }
+
     async login(email: string, senha: string): Promise<IUsuario> {
         const usuario = await this.usuarioModel
             .findOne({

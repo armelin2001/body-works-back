@@ -36,6 +36,11 @@ export class UsuarioDTO implements IUsuario {
     perfil: string;
 
     @ApiProperty()
+    @IsString({ message: "O campo 'statusPagamento' deve ser uma string" })
+    @IsNotEmpty({ message: "O campo 'statusPagamento' é obrigatório" })
+    statusPagamento: string;
+
+    @ApiProperty()
     @IsString({ message: "O campo genero deve ser uma string" })
     @IsNotEmpty({ message: "O campo genero é obrigatório" })
     genero: string;
@@ -67,4 +72,9 @@ export class LoginDTO {
     @IsString({ message: "O campo senha deve ser uma string" })
     @IsNotEmpty({ message: "O campo senha é obrigatório" })
     senha: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo 'statusPagamento' deve ser uma string" })
+    @IsNotEmpty({ message: "O campo 'statusPagamento' é obrigatório" })
+    statusPagamento: string;
 }

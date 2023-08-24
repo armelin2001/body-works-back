@@ -8,4 +8,5 @@ export interface IUsuario {
     genero: string;
     peso?: string;
     altura?: string;
+    statusPagamento?: string;
 }

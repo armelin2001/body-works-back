@@ -18,6 +18,9 @@ export class UsuarioSchemaDB implements IUsuario {
     genero: string;
 
     @Prop({ required: true })
+    statusPagamento: string;
+
+    @Prop({ required: true })
     cpf: string;
 
     @Prop({ required: true })

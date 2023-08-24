@@ -27,4 +27,14 @@ export class UsuarioController {
     async login(@Body() login: LoginDTO): Promise<IUsuario | IUsuarioAcademia> {
         return await this.usuarioService.login(login);
     }
+
+    // Obter usuários para listagem e update em statusPagamento
+    @Get()
+    async obterTodos(): Promise<{ dados: IUsuario[]; quantidade: number }> {
+        return await this.usuarioService.obterTodos();
+    }
+    @Patch(':id/status-pagamento')
+    async atualizarStatusPagamento(@Param('id') id: string, @Body('statusPagamento') statusPagamento: string): Promise<IUsuario> {
+        return await this.usuarioService.atualizarStatusPagamento(id, statusPagamento);
+    }
 }
