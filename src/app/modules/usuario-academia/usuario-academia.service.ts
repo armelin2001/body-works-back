@@ -25,6 +25,7 @@ export class UsuarioAcademiaService {
     }
 
     async criar(usuarioAcademia: IUsuarioAcademia) {
+        //TO-DO refatorar função (talvez um use case com default como erro)
         if (
             Number(usuarioAcademia.codigo) ===
                 Number(process.env.CODIGO_ACADEMIA) &&
@@ -39,12 +40,10 @@ export class UsuarioAcademiaService {
                 senha: usuarioAcademia.senha,
                 role: RolesAceso.adm,
             });
+            usuarioAcademia.idAcesso = acesso.id;
             delete usuarioAcademia.senha;
             delete usuarioAcademia.email;
-            return await this.usuarioAcademiaRepository.criar({
-                ...usuarioAcademia,
-                idAcesso: acesso.id,
-            });
+            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         }
         if (usuarioAcademia.adm === false) {
             const acesso = await this.acessoRepository.criar({
@@ -52,12 +51,10 @@ export class UsuarioAcademiaService {
                 senha: usuarioAcademia.senha,
                 role: RolesAceso.instrutor,
             });
+            usuarioAcademia.idAcesso = acesso.id;
             delete usuarioAcademia.senha;
             delete usuarioAcademia.email;
-            return await this.usuarioAcademiaRepository.criar({
-                ...usuarioAcademia,
-                idAcesso: acesso.id,
-            });
+            return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         } else {
             throw new HttpException(
                 "Código da academia inválido",
