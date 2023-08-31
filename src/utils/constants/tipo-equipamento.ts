@@ -1,5 +1,5 @@
-export enum TipoEquipamento{
+export enum TipoEquipamento {
     "Cross",
     "Livre",
-    "Barra"
+    "Barra",
 }

@@ -6,6 +6,9 @@ import { UsuarioRepository } from "./usuario.repository";
 import { UsuarioService } from "./usuario.service";
 import { UsuarioAcademiaRepository } from "../usuario-academia/usuario-academia.repository";
 import { UsuarioAcademiaSchema } from "../usuario-academia/entity/usuario-academia.schema";
+import { AcessoSchema } from "../acessos/entity/acesso.schema";
+import { AcessoRepository } from "../acessos/acesso.repository";
+import { AcessoService } from "../acessos/acesso.service";
 
 @Module({
     imports: [
@@ -13,8 +16,15 @@ import { UsuarioAcademiaSchema } from "../usuario-academia/entity/usuario-academ
         DataBaseModule.forFeature([
             { name: "UsuarioAcademia", schema: UsuarioAcademiaSchema },
         ]),
+        DataBaseModule.forFeature([{ name: "Acesso", schema: AcessoSchema }]),
     ],
     controllers: [UsuarioController],
-    providers: [UsuarioRepository, UsuarioAcademiaRepository, UsuarioService],
+    providers: [
+        UsuarioRepository,
+        UsuarioAcademiaRepository,
+        UsuarioService,
+        AcessoService,
+        AcessoRepository,
+    ],
 })
 export class UsuarioModule {}

@@ -3,12 +3,19 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioAcademiaRepository } from "./usuario-academia.repository";
 import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
 import { UsuarioAcademiaDTO } from "./dto/usuario-academia.dto";
+import { AcessoRepository } from "../acessos/acesso.repository";
+import { RolesAceso } from "src/utils/constants/roles-acesso";
+import { AcessoService } from "../acessos/acesso.service";
 
 @Injectable()
 export class UsuarioAcademiaService {
     constructor(
         @Inject(UsuarioAcademiaRepository)
         private readonly usuarioAcademiaRepository: UsuarioAcademiaRepository,
+        @Inject(AcessoRepository)
+        private readonly acessoRepository: AcessoRepository,
+        @Inject(AcessoService)
+        private readonly acessoService: AcessoService,
     ) {
         this.usuarioAcademiaRepository = usuarioAcademiaRepository;
     }
@@ -18,6 +25,7 @@ export class UsuarioAcademiaService {
     }
 
     async criar(usuarioAcademia: IUsuarioAcademia) {
+        //TO-DO refatorar função (talvez um use case com default como erro)
         if (
             Number(usuarioAcademia.codigo) ===
                 Number(process.env.CODIGO_ACADEMIA) &&
@@ -27,9 +35,25 @@ export class UsuarioAcademiaService {
                 usuarioAcademia.email,
                 usuarioAcademia.cpf,
             );
+            const acesso = await this.acessoService.cadastrar({
+                email: usuarioAcademia.email,
+                senha: usuarioAcademia.senha,
+                role: RolesAceso.adm,
+            });
+            usuarioAcademia.idAcesso = acesso.id;
+            delete usuarioAcademia.senha;
+            delete usuarioAcademia.email;
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         }
         if (usuarioAcademia.adm === false) {
+            const acesso = await this.acessoRepository.criar({
+                email: usuarioAcademia.email,
+                senha: usuarioAcademia.senha,
+                role: RolesAceso.instrutor,
+            });
+            usuarioAcademia.idAcesso = acesso.id;
+            delete usuarioAcademia.senha;
+            delete usuarioAcademia.email;
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         } else {
             throw new HttpException(
@@ -56,9 +80,7 @@ export class UsuarioAcademiaService {
 
     async validarCpfEmail(email: string, cpf: string) {
         const usuarioAcademiaEmailJaCadastrado =
-            await this.usuarioAcademiaRepository.procurarPorEmailJaCadastrado(
-                email,
-            );
+            await this.acessoService.validaEmail(email);
         const usuarioAcademiaCpfJaCadastrado =
             await this.usuarioAcademiaRepository.procurarPorCpfJaCadastrado(
                 cpf,

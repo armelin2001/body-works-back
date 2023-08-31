@@ -46,4 +46,12 @@ export class UsuarioAcademiaRepository extends RepositoryAbstract<
             .exec();
         return usuario;
     }
+
+    async procuraPorIdAcesso(idAcesso: string): Promise<IUsuarioAcademia> {
+        return await this.usuarioAcademiaModel
+            .findOne({
+                idAcesso: idAcesso,
+            })
+            .exec();
+    }
 }
