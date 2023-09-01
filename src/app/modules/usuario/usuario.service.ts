@@ -7,6 +7,7 @@ import { IUsuarioAcademia } from "../usuario-academia/entity/usuario-academia.in
 import { AcessoRepository } from "../acessos/acesso.repository";
 import { RolesAceso } from "src/utils/constants/roles-acesso";
 import { AcessoService } from "../acessos/acesso.service";
+import { StatusPagamento } from "src/utils/constants/status-pagamento";
 
 @Injectable()
 export class UsuarioService {
@@ -41,10 +42,30 @@ export class UsuarioService {
             await this.usuarioAcademiaRepository.procuraPorIdAcesso(acesso.id);
 
         if (usuario) {
+            if (usuario.statusPagamento === "cancelado") {
+                throw new HttpException(
+                    "Usuário cancelado. Entre em contato com um supervisor da academia",
+                    HttpStatus.FORBIDDEN,
+                );
+            }
             return usuario;
         } else {
             return usuarioAcademia;
         }
+    }
+
+    async obterTodos(): Promise<{ dados: IUsuario[]; quantidade: number }> {
+        return await this.usuarioRepository.obterTodos();
+    }
+
+    async atualizarStatusPagamento(
+        id: string,
+        statusPagamento: StatusPagamento,
+    ): Promise<IUsuario> {
+        return await this.usuarioRepository.atualizarStatusPagamento(
+            id,
+            statusPagamento,
+        );
     }
 
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {

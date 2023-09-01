@@ -4,9 +4,11 @@ import {
     IsNotEmpty,
     IsDate,
     IsOptional,
+    IsEnum,
 } from "@nestjs/class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
+import { StatusPagamento } from "src/utils/constants/status-pagamento";
 
 export class UsuarioDTO implements IUsuario {
     @ApiProperty()
@@ -34,6 +36,13 @@ export class UsuarioDTO implements IUsuario {
     @IsString({ message: "O campo perfil deve ser uma string" })
     @IsNotEmpty({ message: "O campo perfil é obrigatório" })
     perfil: string;
+
+    @ApiProperty()
+    @IsEnum(StatusPagamento, {
+        message: "O campo 'statusPagamento' é obrigatório",
+    })
+    @IsNotEmpty({ message: "O campo 'statusPagamento' é obrigatório" })
+    statusPagamento: StatusPagamento;
 
     @ApiProperty()
     @IsString({ message: "O campo genero deve ser uma string" })
@@ -67,4 +76,9 @@ export class LoginDTO {
     @IsString({ message: "O campo senha deve ser uma string" })
     @IsNotEmpty({ message: "O campo senha é obrigatório" })
     senha: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo 'statusPagamento' deve ser uma string" })
+    @IsNotEmpty({ message: "O campo 'statusPagamento' é obrigatório" })
+    statusPagamento: string;
 }

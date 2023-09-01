@@ -3,6 +3,7 @@ import { UsuarioService } from "./usuario.service";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
 import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
 import { IUsuarioAcademia } from "../usuario-academia/entity/usuario-academia.interface";
+import { StatusPagamento } from "src/utils/constants/status-pagamento";
 
 @Controller("usuario")
 export class UsuarioController {
@@ -26,5 +27,21 @@ export class UsuarioController {
     @Post("login")
     async login(@Body() login: LoginDTO): Promise<IUsuario | IUsuarioAcademia> {
         return await this.usuarioService.login(login);
+    }
+
+    // Obter usuários para listagem e update em statusPagamento
+    @Get()
+    async obterTodos(): Promise<{ dados: IUsuario[]; quantidade: number }> {
+        return await this.usuarioService.obterTodos();
+    }
+    @Patch(":id/status-pagamento")
+    async atualizarStatusPagamento(
+        @Param("id") id: string,
+        @Body("statusPagamento") statusPagamento: StatusPagamento,
+    ): Promise<IUsuario> {
+        return await this.usuarioService.atualizarStatusPagamento(
+            id,
+            statusPagamento,
+        );
     }
 }

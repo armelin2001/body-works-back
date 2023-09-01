@@ -1,3 +1,5 @@
+import { StatusPagamento } from "src/utils/constants/status-pagamento";
+
 export interface IUsuario {
     id?: string;
     nome: string;
@@ -8,5 +10,6 @@ export interface IUsuario {
     genero: string;
     peso?: string;
     altura?: string;
+    statusPagamento?: StatusPagamento;
     idAcesso?: string;
 }
