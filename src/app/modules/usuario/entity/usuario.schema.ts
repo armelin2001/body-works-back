@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IUsuario } from "./usuario.interface";
+import { StatusPagamento } from "src/utils/constants/status-pagamento";
 @Schema({ collection: "usuario", timestamps: true })
 export class UsuarioSchemaDB implements IUsuario {
     @Prop({ required: true })
@@ -18,7 +19,7 @@ export class UsuarioSchemaDB implements IUsuario {
     genero: string;
 
     @Prop({ required: true })
-    statusPagamento: string;
+    statusPagamento: StatusPagamento;
 
     @Prop({ required: true })
     cpf: string;
