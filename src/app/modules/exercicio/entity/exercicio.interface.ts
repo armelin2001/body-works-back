@@ -14,16 +14,3 @@ export interface IExercicio {
     musculosTrabalhados: string;
     observacoes: string;
 }
-/*
-    id?: string;
-    nome: string;
-    descricao: string;
-    tipoExercicio: ExercicioTipo;
-    equipamentoNecessario: string;
-    nivelDificuldade: ExercicioDificuldade;
-    tempoRecomendado: number;
-    videoDemonstrativo: string;
-    instrucoesPassoAPasso: string;
-    musculosTrabalhados: string;
-    observacoes: string;
-*/
