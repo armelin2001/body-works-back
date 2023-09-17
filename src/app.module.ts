@@ -6,6 +6,7 @@ import { UsuarioModule } from "./app/modules/usuario/usuario.module";
 import { DataBaseModule } from "./utils/database/database.module";
 import { UsuarioAcademiaModule } from "./app/modules/usuario-academia/usuario-academia.module";
 import { EquipamentoModule } from "./app/modules/equipamento/equipamento.module";
+import { AuthModule } from "./app/modules/auth/auth.moduele";
 
 @Module({
     imports: [
@@ -13,6 +14,7 @@ import { EquipamentoModule } from "./app/modules/equipamento/equipamento.module"
         UsuarioModule,
         UsuarioAcademiaModule,
         EquipamentoModule,
+        AuthModule,
         DataBaseModule.forRoot(),
     ],
     controllers: [AppController],

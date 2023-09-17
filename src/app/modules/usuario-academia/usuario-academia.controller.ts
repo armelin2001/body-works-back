@@ -6,11 +6,14 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from "@nestjs/common";
 import { UsuarioAcademiaService } from "./usuario-academia.service";
 import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
 import { UsuarioAcademiaDTO } from "./dto/usuario-academia.dto";
+import { LocalAuthGuard } from "../auth/shared/local-auth.guard";
 
+@UseGuards(LocalAuthGuard)
 @Controller("usuario-academia")
 export class UsuarioAcademiaController {
     constructor(
