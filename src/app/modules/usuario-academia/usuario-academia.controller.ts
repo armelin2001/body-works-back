@@ -13,13 +13,13 @@ import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
 import { UsuarioAcademiaDTO } from "./dto/usuario-academia.dto";
 import { LocalAuthGuard } from "../auth/shared/local-auth.guard";
 
-@UseGuards(LocalAuthGuard)
 @Controller("usuario-academia")
 export class UsuarioAcademiaController {
     constructor(
         private readonly usuarioAcademiaService: UsuarioAcademiaService,
     ) {}
 
+    @UseGuards(LocalAuthGuard)
     @Get()
     async obterTodos(): Promise<{
         dados: IUsuarioAcademia[];
@@ -28,6 +28,7 @@ export class UsuarioAcademiaController {
         return await this.usuarioAcademiaService.obterTodos();
     }
 
+    @UseGuards(LocalAuthGuard)
     @Get(":id")
     async obterPorId(@Param("id") id: string): Promise<IUsuarioAcademia> {
         return await this.usuarioAcademiaService.obterPorId(id);
@@ -40,6 +41,7 @@ export class UsuarioAcademiaController {
         return await this.usuarioAcademiaService.criar(usuarioAcademia);
     }
 
+    @UseGuards(LocalAuthGuard)
     @Patch(":id")
     async atualizar(
         @Param("id") id: string,
@@ -48,6 +50,7 @@ export class UsuarioAcademiaController {
         return await this.usuarioAcademiaService.atualizar(id, usuarioAcademia);
     }
 
+    @UseGuards(LocalAuthGuard)
     @Delete(":id")
     async remover(@Param("id") id: string) {
         return await this.usuarioAcademiaService.remover(id);
