@@ -6,6 +6,7 @@ import { UsuarioModule } from "./app/modules/usuario/usuario.module";
 import { DataBaseModule } from "./utils/database/database.module";
 import { UsuarioAcademiaModule } from "./app/modules/usuario-academia/usuario-academia.module";
 import { EquipamentoModule } from "./app/modules/equipamento/equipamento.module";
+import { ExercicioModule } from "./app/modules/exercicio/exercicio.module";
 import { AuthModule } from "./app/modules/auth/auth.moduele";
 
 @Module({
@@ -14,6 +15,7 @@ import { AuthModule } from "./app/modules/auth/auth.moduele";
         UsuarioModule,
         UsuarioAcademiaModule,
         EquipamentoModule,
+        ExercicioModule,
         AuthModule,
         DataBaseModule.forRoot(),
     ],
