@@ -11,5 +11,6 @@ import { AcessoRepository } from "./acesso.repository";
     ],
     controllers: [AcessoController],
     providers: [AcessoService, AcessoRepository],
+    exports: [AcessoService],
 })
 export class AcessoModule {}

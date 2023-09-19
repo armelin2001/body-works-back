@@ -51,4 +51,26 @@ export class AcessoService {
 
         return acessoUsuario;
     }
+
+    async validaUsuario(emai: string, senha: string): Promise<IAcesso> {
+        const acessoUsuario =
+            await this.acessoRepository.procuraEmailCadastrado(emai);
+        let senhaValida = false;
+        if (!acessoUsuario) {
+            throw new HttpException(
+                "Usuário ou senha inválidos",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        await bcrypt.compare(senha, acessoUsuario.senha).then((res) => {
+            if (res) {
+                senhaValida = res;
+            }
+        });
+
+        if (senhaValida) {
+            return acessoUsuario;
+        }
+    }
 }

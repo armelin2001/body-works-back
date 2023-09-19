@@ -6,11 +6,14 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from "@nestjs/common";
 import { EquipamentoService } from "./equipamento.service";
 import { IEquipamento } from "./entity/equipamento.interface";
 import { EquipamentoDTO } from "./dto/equipamento.dto";
+import { LocalAuthGuard } from "../auth/shared/local-auth.guard";
 
+@UseGuards(LocalAuthGuard)
 @Controller("equipamento")
 export class EquipamentoController {
     constructor(private readonly equipamentoService: EquipamentoService) {}
