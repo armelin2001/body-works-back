@@ -6,11 +6,14 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from "@nestjs/common";
 import { ExercicioService } from "./exercicio.service";
 import { IExercicio } from "./entity/exercicio.interface";
 import { ExercicioDTO } from "./dto/exercicio.dto";
+import { LocalAuthGuard } from "../auth/shared/local-auth.guard";
 
+@UseGuards(LocalAuthGuard)
 @Controller("exercicio")
 export class ExercicioController {
     constructor(private readonly exercicioService: ExercicioService) {}
@@ -31,10 +34,7 @@ export class ExercicioController {
     }
 
     @Patch(":id")
-    async atualizar(
-        @Param("id") id: string,
-        @Body() exercicio: ExercicioDTO,
-    ) {
+    async atualizar(@Param("id") id: string, @Body() exercicio: ExercicioDTO) {
         return await this.exercicioService.atualizar(exercicio, id);
     }
 
