@@ -144,4 +144,21 @@ export class UsuarioService {
             );
         }
     }
+    async removeUsuario(id: string){
+        const usuario = await this.usuarioRepository.obterPorId(id);
+        if(!usuario){
+            throw new HttpException(
+                "Usuario não encontrado!",
+                HttpStatus.NOT_FOUND
+            );
+        }
+
+        await this.usuarioRepository.remover(id);
+        await this.acessoRepository.remover(usuario.id);
+
+        return {
+            message: "Usuário removido com sucesso!",
+            status: HttpStatus.OK
+        }
+    }
 }
