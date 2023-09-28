@@ -48,8 +48,10 @@ export class UsuarioService {
                     HttpStatus.FORBIDDEN,
                 );
             }
+            usuario.email = acesso.email;
             return usuario;
         } else {
+            usuarioAcademia.email = acesso.email;
             return usuarioAcademia;
         }
     }
