@@ -8,12 +8,14 @@ import { UsuarioAcademiaModule } from "./app/modules/usuario-academia/usuario-ac
 import { EquipamentoModule } from "./app/modules/equipamento/equipamento.module";
 import { ExercicioModule } from "./app/modules/exercicio/exercicio.module";
 import { AuthModule } from "./app/modules/auth/auth.moduele";
+import { FichaModule } from "./app/modules/ficha/ficha.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot(),
         UsuarioModule,
         UsuarioAcademiaModule,
+        FichaModule,
         EquipamentoModule,
         ExercicioModule,
         AuthModule,
