@@ -1,3 +1,4 @@
+import { RolesAceso } from "src/utils/constants/roles-acesso";
 import { StatusPagamento } from "src/utils/constants/status-pagamento";
 
 export interface IUsuario {
@@ -12,4 +13,8 @@ export interface IUsuario {
     altura?: string;
     statusPagamento?: StatusPagamento;
     idAcesso?: string;
+}
+
+export interface IUsuarioLogin extends IUsuario {
+    role: RolesAceso;
 }

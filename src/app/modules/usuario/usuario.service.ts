@@ -1,9 +1,15 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
 import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
-import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
+import {
+    IUsuario,
+    IUsuarioLogin,
+} from "src/app/modules/usuario/entity/usuario.interface";
 import { UsuarioAcademiaRepository } from "../usuario-academia/usuario-academia.repository";
-import { IUsuarioAcademia } from "../usuario-academia/entity/usuario-academia.interface";
+import {
+    IUsuarioAcademia,
+    IUsuarioAcademiaLogin,
+} from "../usuario-academia/entity/usuario-academia.interface";
 import { AcessoRepository } from "../acessos/acesso.repository";
 import { RolesAceso } from "src/utils/constants/roles-acesso";
 import { AcessoService } from "../acessos/acesso.service";
@@ -22,7 +28,9 @@ export class UsuarioService {
         private readonly acessoService: AcessoService,
     ) {}
 
-    async login(login: LoginDTO): Promise<IUsuario | IUsuarioAcademia> {
+    async login(
+        login: LoginDTO,
+    ): Promise<IUsuarioLogin | IUsuarioAcademiaLogin> {
         const acesso = await this.acessoService.procuraUsuario(
             login.email,
             login.senha,
@@ -48,11 +56,33 @@ export class UsuarioService {
                     HttpStatus.FORBIDDEN,
                 );
             }
-            usuario.email = acesso.email;
-            return usuario;
+
+            const usuarioLogin: IUsuarioLogin = {
+                id: usuario.id,
+                nome: usuario.nome,
+                cpf: usuario.cpf,
+                email: acesso.email,
+                dataNascimento: usuario.dataNascimento,
+                genero: usuario.genero,
+                statusPagamento: usuario.statusPagamento,
+                idAcesso: usuario.idAcesso,
+                role: acesso.role,
+            };
+            return usuarioLogin;
         } else {
             usuarioAcademia.email = acesso.email;
-            return usuarioAcademia;
+            const usuarioAcademiaLogin: IUsuarioAcademiaLogin = {
+                id: usuarioAcademia.id,
+                nome: usuarioAcademia.nome,
+                cpf: usuarioAcademia.cpf,
+                email: usuarioAcademia.email,
+                adm: usuarioAcademia.adm,
+                dataNascimento: usuarioAcademia.dataNascimento,
+                genero: usuarioAcademia.genero,
+                idAcesso: usuarioAcademia.idAcesso,
+                role: acesso.role,
+            };
+            return usuarioAcademiaLogin;
         }
     }
 

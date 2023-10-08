@@ -22,12 +22,17 @@ export class UsuarioRepository extends RepositoryAbstract<
         const usuarios = await this.usuarioModel.find().exec();
         return {
             dados: usuarios,
-            quantidade: usuarios.length
+            quantidade: usuarios.length,
         };
     }
 
-    async atualizarStatusPagamento(id: string, statusPagamento: string): Promise<IUsuario> {
-        return await this.usuarioModel.findByIdAndUpdate(id, { statusPagamento }, { new: true }).exec();
+    async atualizarStatusPagamento(
+        id: string,
+        statusPagamento: string,
+    ): Promise<IUsuario> {
+        return await this.usuarioModel
+            .findByIdAndUpdate(id, { statusPagamento }, { new: true })
+            .exec();
     }
 
     async login(email: string, senha: string): Promise<IUsuario> {

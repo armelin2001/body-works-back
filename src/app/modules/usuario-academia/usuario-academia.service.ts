@@ -12,8 +12,6 @@ export class UsuarioAcademiaService {
     constructor(
         @Inject(UsuarioAcademiaRepository)
         private readonly usuarioAcademiaRepository: UsuarioAcademiaRepository,
-        @Inject(AcessoRepository)
-        private readonly acessoRepository: AcessoRepository,
         @Inject(AcessoService)
         private readonly acessoService: AcessoService,
     ) {
@@ -46,7 +44,7 @@ export class UsuarioAcademiaService {
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         }
         if (usuarioAcademia.adm === false) {
-            const acesso = await this.acessoRepository.criar({
+            const acesso = await this.acessoService.cadastrar({
                 email: usuarioAcademia.email,
                 senha: usuarioAcademia.senha,
                 role: RolesAceso.instrutor,
