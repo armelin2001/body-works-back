@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { FichaRepository } from "./ficha.repository";
 import { IFicha } from "./entity/ficha.interface";
+import { FichaDto } from "./dto/ficha.dto";
 
 @Injectable()
 export class FichaService {
@@ -9,11 +10,11 @@ export class FichaService {
         private readonly fichaRepository: FichaRepository,
     ) {}
 
-    async cadastrar(ficha: IFicha): Promise<IFicha> {
+    async cadastrar(ficha: FichaDto): Promise<IFicha> {
         return await this.fichaRepository.criar(ficha);
     }
 
-    async atualizar(ficha: IFicha, id: string): Promise<IFicha> {
+    async atualizar(ficha: FichaDto, id: string): Promise<IFicha> {
         return await this.fichaRepository.atualizar(id, ficha);
     }
 

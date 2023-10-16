@@ -1,19 +1,22 @@
-import { Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IExercicio } from "../../exercicio/entity/exercicio.interface";
-import { IFicha } from "./ficha.interface";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { IExercicioFicha, IFicha, TipoTreino } from "./ficha.interface";
 
+@Schema({ collection: "ficha" })
 export class FichaSchemaDB implements IFicha {
     @Prop({ required: true })
-    idInstutor: string;
+    idInstrutor: string;
 
     @Prop({ required: true })
     nome: string;
 
-    @Prop({ required: true })
-    descricao: string;
+    @Prop({ required: false })
+    descricao?: string;
 
     @Prop({ required: true })
-    exercicios: IExercicio[];
+    tiposGrupamento: TipoTreino[];
+
+    @Prop({ required: true })
+    exercicios: IExercicioFicha[];
 }
 
 export const FichaSchema = SchemaFactory.createForClass(FichaSchemaDB);

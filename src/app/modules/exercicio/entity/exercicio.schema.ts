@@ -1,8 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ExercicioDificuldade, ExercicioTipo, IExercicio } from "./exercicio.interface";
+import {
+    ExercicioDificuldade,
+    ExercicioTipo,
+    IExercicio,
+} from "./exercicio.interface";
 
 @Schema({ collection: "exercicio" })
-export class ExercicioSchemaDB implements IExercicio{
+export class ExercicioSchemaDB implements IExercicio {
     @Prop({ required: true })
     nome: string;
     @Prop({ required: true })

@@ -1,11 +1,11 @@
 import {
+    IsArray,
     IsMongoId,
     IsNotEmpty,
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
-import { IExercicio } from "../../exercicio/entity/exercicio.interface";
-import { IFicha } from "../entity/ficha.interface";
+import { IExercicioFicha, IFicha, TipoTreino } from "../entity/ficha.interface";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class FichaDto implements IFicha {
@@ -18,7 +18,7 @@ export class FichaDto implements IFicha {
     @ApiProperty()
     @IsString({ message: "O campo nome deve ser uma string" })
     @IsNotEmpty({ message: "O campo nome é obrigatório" })
-    idInstutor: string;
+    idInstrutor: string;
 
     @ApiProperty()
     @IsString({ message: "O campo nome deve ser uma string" })
@@ -27,9 +27,14 @@ export class FichaDto implements IFicha {
 
     @ApiProperty()
     @IsString({ message: "O campo nome deve ser uma string" })
-    @IsNotEmpty({ message: "O campo nome é obrigatório" })
+    @IsOptional()
     descricao: string;
 
     @ApiProperty()
-    exercicios: IExercicio[];
+    @IsArray()
+    tiposGrupamento: TipoTreino[];
+
+    @ApiProperty()
+    @IsArray()
+    exercicios: IExercicioFicha[];
 }

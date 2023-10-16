@@ -13,7 +13,7 @@ import { FichaService } from "./ficha.service";
 import { FichaDto } from "./dto/ficha.dto";
 import { IFicha } from "./entity/ficha.interface";
 
-@UseGuards(LocalAuthGuard)
+//@UseGuards(LocalAuthGuard)
 @Controller("ficha")
 export class FichaController {
     constructor(private readonly fichaService: FichaService) {}

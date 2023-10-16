@@ -1,5 +1,3 @@
-import { IExercicioFicha } from "../../exercicio/entity/exercicio.interface";
-
 export type GrupoMuscular =
     | "Peito"
     | "Costas"
@@ -15,9 +13,18 @@ export type GrupoMuscular =
 export type TipoTreino = "A" | "B" | "C" | "D" | "E";
 export interface IFicha {
     id?: string;
-    idInstutor: string;
+    idInstrutor: string;
     nome: string;
     descricao?: string;
     tiposGrupamento: TipoTreino[];
     exercicios: IExercicioFicha[];
+}
+
+export interface IExercicioFicha {
+    idExercicio: string;
+    series: number;
+    repeticoes: number;
+    tempoIntervaloMinutos: number;
+    tempoIntervaloSegundos: number;
+    tipoGrupamento: TipoTreino;
 }
