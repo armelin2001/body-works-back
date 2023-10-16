@@ -8,7 +8,7 @@ import {
     UseGuards,
 } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
-import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
+import { LoginDTO, UsuarioDTO, UsuarioFichaDto } from "./dto/usario.dto";
 import { IUsuario } from "src/app/modules/usuario/entity/usuario.interface";
 import { IUsuarioAcademia } from "../usuario-academia/entity/usuario-academia.interface";
 import { StatusPagamento } from "src/utils/constants/status-pagamento";
@@ -29,7 +29,12 @@ export class UsuarioController {
         return await this.usuarioService.cadastrar(usuario);
     }
 
-    @UseGuards(LocalAuthGuard)
+    @Post("ficha")
+    async cadastrarFicha(@Body() usuario: UsuarioFichaDto): Promise<IUsuario> {
+        return await this.usuarioService.salvaFicha(usuario);
+    }
+
+    //@UseGuards(LocalAuthGuard)
     @Patch(":id")
     async atualizar(@Param("id") id: string, @Body() usuario: UsuarioDTO) {
         return await this.usuarioService.atualizar(usuario, id);

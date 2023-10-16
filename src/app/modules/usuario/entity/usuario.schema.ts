@@ -7,7 +7,7 @@ export class UsuarioSchemaDB implements IUsuario {
     nome: string;
 
     @Prop({ required: false })
-    email?: string;
+    email: string;
 
     @Prop({ required: false })
     senha?: string;
@@ -35,6 +35,9 @@ export class UsuarioSchemaDB implements IUsuario {
 
     @Prop({ required: true })
     idAcesso: string;
+
+    @Prop({ required: false })
+    idFicha: string;
 }
 
 export const UsuarioSchema = SchemaFactory.createForClass(UsuarioSchemaDB);

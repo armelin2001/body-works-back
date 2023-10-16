@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
-import { LoginDTO, UsuarioDTO } from "./dto/usario.dto";
+import { LoginDTO, UsuarioDTO, UsuarioFichaDto } from "./dto/usario.dto";
 import {
     IUsuario,
     IUsuarioLogin,
@@ -173,5 +173,26 @@ export class UsuarioService {
                 HttpStatus.BAD_REQUEST,
             );
         }
+    }
+
+    async salvaFicha(usuarioFicha: UsuarioFichaDto) {
+        const usuario = await this.usuarioRepository.obterPorId(
+            usuarioFicha.id,
+        );
+        const usuarioDto: UsuarioDTO = {
+            id: usuario.id,
+            nome: usuario.nome,
+            dataNascimento: usuario.dataNascimento,
+            cpf: usuario.cpf,
+            email: usuario.email,
+            senha: usuario.senha,
+            genero: usuario.genero,
+            peso: usuario.peso,
+            altura: usuario.altura,
+            statusPagamento: usuario.statusPagamento,
+            perfil: "USUARIO",
+            idFicha: usuarioFicha.idFicha,
+        };
+        return await this.atualizar(usuarioDto, usuarioFicha.id);
     }
 }
