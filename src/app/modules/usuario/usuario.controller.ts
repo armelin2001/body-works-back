@@ -29,12 +29,13 @@ export class UsuarioController {
         return await this.usuarioService.cadastrar(usuario);
     }
 
+    @UseGuards(LocalAuthGuard)
     @Post("ficha")
     async cadastrarFicha(@Body() usuario: UsuarioFichaDto): Promise<IUsuario> {
         return await this.usuarioService.salvaFicha(usuario);
     }
 
-    //@UseGuards(LocalAuthGuard)
+    @UseGuards(LocalAuthGuard)
     @Patch(":id")
     async atualizar(@Param("id") id: string, @Body() usuario: UsuarioDTO) {
         return await this.usuarioService.atualizar(usuario, id);
