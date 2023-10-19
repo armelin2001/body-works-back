@@ -1,9 +1,23 @@
-import { IsEnum, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString } from "@nestjs/class-validator";
-import { ExercicioDificuldade, ExercicioTipo, IExercicio } from "../entity/exercicio.interface";
+import {
+    IsEnum,
+    IsInt,
+    IsMongoId,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+} from "@nestjs/class-validator";
+import {
+    ExercicioDificuldade,
+    ExercicioTipo,
+    IExercicio,
+} from "../entity/exercicio.interface";
 import { ApiProperty } from "@nestjs/swagger";
-import { DificuldadeExercicio, TipoExercicio } from "src/utils/constants/exercicio";
+import {
+    DificuldadeExercicio,
+    TipoExercicio,
+} from "src/utils/constants/exercicio";
 
-export class ExercicioDTO implements IExercicio{
+export class ExercicioDTO implements IExercicio {
     @ApiProperty()
     @IsString({ message: "O campo id deve ser uma string" })
     @IsOptional()
@@ -22,7 +36,9 @@ export class ExercicioDTO implements IExercicio{
 
     @ApiProperty()
     @IsString({ message: "O campo nivelDificuldade deve ser uma string" })
-    @IsEnum(TipoExercicio, { message: "O nivelDificuldade do equipamento deve ser válido" })
+    @IsEnum(TipoExercicio, {
+        message: "O nivelDificuldade do equipamento deve ser válido",
+    })
     tipoExercicio: ExercicioTipo;
 
     @ApiProperty()
@@ -32,7 +48,9 @@ export class ExercicioDTO implements IExercicio{
 
     @ApiProperty()
     @IsString({ message: "O campo nivelDificuldade deve ser uma string" })
-    @IsEnum(DificuldadeExercicio, { message: "O nivelDificuldade do equipamento deve ser válido" })
+    @IsEnum(DificuldadeExercicio, {
+        message: "O nivelDificuldade do equipamento deve ser válido",
+    })
     nivelDificuldade: ExercicioDificuldade;
 
     @ApiProperty()
@@ -59,5 +77,4 @@ export class ExercicioDTO implements IExercicio{
     @IsString({ message: "O campo observacoes deve ser uma string" })
     @IsNotEmpty({ message: "O campo observacoes é obrigatório" })
     observacoes: string;
-
 }

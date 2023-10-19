@@ -1,3 +1,5 @@
+import { TipoTreino } from "../../ficha/entity/ficha.interface";
+
 export type ExercicioDificuldade = "Iniciante" | "Intermediario" | "Avancado";
 export type ExercicioTipo = "Cardiovascular" | "Força" | "Flexibilidade";
 

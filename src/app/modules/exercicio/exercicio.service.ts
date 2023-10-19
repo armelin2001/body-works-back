@@ -1,8 +1,9 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { ExercicioRepository } from "./exercicio.repository";
 import { IExercicio } from "./entity/exercicio.interface";
 import { ExercicioDTO } from "./dto/exercicio.dto";
 
+@Injectable()
 export class ExercicioService {
     constructor(
         @Inject(ExercicioRepository)

@@ -64,6 +64,9 @@ export class UsuarioDTO implements IUsuario {
 
     @ApiProperty()
     altura: string;
+
+    @ApiProperty()
+    idFicha: string;
 }
 
 export class LoginDTO {
@@ -81,4 +84,16 @@ export class LoginDTO {
     @IsString({ message: "O campo 'statusPagamento' deve ser uma string" })
     @IsNotEmpty({ message: "O campo 'statusPagamento' é obrigatório" })
     statusPagamento: string;
+}
+
+export class UsuarioFichaDto {
+    @ApiProperty()
+    @IsString({ message: "O campo id deve ser uma string" })
+    @IsNotEmpty({ message: "O campo id é obrigatório" })
+    id: string;
+
+    @ApiProperty()
+    @IsString({ message: "O campo idFicha deve ser uma string" })
+    @IsNotEmpty({ message: "O campo idFicha é obrigatório" })
+    idFicha: string;
 }

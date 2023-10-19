@@ -1,8 +1,9 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { EquipamentoRepository } from "./equipamento.repository";
 import { IEquipamento } from "./entity/equipamento.interface";
 import { EquipamentoDTO } from "./dto/equipamento.dto";
 
+@Injectable()
 export class EquipamentoService {
     constructor(
         @Inject(EquipamentoRepository)
