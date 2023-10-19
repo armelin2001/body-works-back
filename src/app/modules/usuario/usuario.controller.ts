@@ -5,6 +5,7 @@ import {
     Patch,
     Param,
     Get,
+    Delete,
     UseGuards,
 } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
@@ -62,5 +63,11 @@ export class UsuarioController {
             id,
             statusPagamento,
         );
+    }
+
+    @UseGuards(LocalAuthGuard)
+    @Delete(":id")
+    async remover(@Param("id") id:string) {
+        return await this.usuarioService.removeUsuario(id);
     }
 }
