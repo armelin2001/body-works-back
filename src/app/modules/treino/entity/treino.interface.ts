@@ -6,6 +6,7 @@ export interface ITreino {
     idUsuario: string;
     idFicha: string;
     dataTreino: Date;
+    comentario?: string;
     exercicios: IExercicioTreino[];
 }
 
@@ -15,4 +16,12 @@ export interface IExercicioTreino extends IExercicio {
     carga: number[];
     tempoDescanso: number;
     observacoes: string;
+}
+
+export interface IComentarioTreino {
+    idTreino: string;
+    idUsuario: string;
+    idInstrutor?: string;
+    comentario: string;
+    dataTreino: Date;
 }

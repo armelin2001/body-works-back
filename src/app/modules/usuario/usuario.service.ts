@@ -6,10 +6,7 @@ import {
     IUsuarioLogin,
 } from "src/app/modules/usuario/entity/usuario.interface";
 import { UsuarioAcademiaRepository } from "../usuario-academia/usuario-academia.repository";
-import {
-    IUsuarioAcademia,
-    IUsuarioAcademiaLogin,
-} from "../usuario-academia/entity/usuario-academia.interface";
+import { IUsuarioAcademiaLogin } from "../usuario-academia/entity/usuario-academia.interface";
 import { AcessoRepository } from "../acessos/acesso.repository";
 import { RolesAceso } from "src/utils/constants/roles-acesso";
 import { AcessoService } from "../acessos/acesso.service";
