@@ -15,6 +15,7 @@ export interface IFicha {
     id?: string;
     idInstrutor: string;
     nome: string;
+    qtdTreino: number;
     descricao?: string;
     tiposGrupamento: TipoTreino[];
     exercicios: IExercicioFicha[];

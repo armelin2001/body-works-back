@@ -67,7 +67,7 @@ export class UsuarioController {
 
     @UseGuards(LocalAuthGuard)
     @Delete(":id")
-    async remover(@Param("id") id:string) {
+    async remover(@Param("id") id: string) {
         return await this.usuarioService.removeUsuario(id);
     }
 }

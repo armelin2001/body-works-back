@@ -2,6 +2,7 @@ import {
     IsArray,
     IsMongoId,
     IsNotEmpty,
+    IsNumber,
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
@@ -19,6 +20,11 @@ export class FichaDto implements IFicha {
     @IsString({ message: "O campo nome deve ser uma string" })
     @IsNotEmpty({ message: "O campo nome é obrigatório" })
     idInstrutor: string;
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty({ message: "O campo qtdTreino é obrigatório" })
+    qtdTreino: number;
 
     @ApiProperty()
     @IsString({ message: "O campo nome deve ser uma string" })
