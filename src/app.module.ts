@@ -9,6 +9,7 @@ import { EquipamentoModule } from "./app/modules/equipamento/equipamento.module"
 import { ExercicioModule } from "./app/modules/exercicio/exercicio.module";
 import { AuthModule } from "./app/modules/auth/auth.moduele";
 import { FichaModule } from "./app/modules/ficha/ficha.module";
+import { HistoricoTreinoModule } from "./app/modules/historico-treino/historico-treino.module";
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { FichaModule } from "./app/modules/ficha/ficha.module";
         FichaModule,
         EquipamentoModule,
         ExercicioModule,
+        HistoricoTreinoModule,
         AuthModule,
         DataBaseModule.forRoot(),
     ],

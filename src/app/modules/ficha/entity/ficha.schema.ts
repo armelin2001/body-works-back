@@ -9,6 +9,9 @@ export class FichaSchemaDB implements IFicha {
     @Prop({ required: true })
     nome: string;
 
+    @Prop({ required: true })
+    qtdTreino: number;
+
     @Prop({ required: false })
     descricao?: string;
 

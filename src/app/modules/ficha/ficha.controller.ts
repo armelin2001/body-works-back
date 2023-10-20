@@ -13,7 +13,7 @@ import { FichaService } from "./ficha.service";
 import { FichaDto } from "./dto/ficha.dto";
 import { IFicha } from "./entity/ficha.interface";
 
-//@UseGuards(LocalAuthGuard)
+@UseGuards(LocalAuthGuard)
 @Controller("ficha")
 export class FichaController {
     constructor(private readonly fichaService: FichaService) {}
@@ -24,7 +24,7 @@ export class FichaController {
     }
 
     @Get(":id")
-    async obterPorId(id: string): Promise<IFicha> {
+    async obterPorId(@Param("id") id: string): Promise<IFicha> {
         return await this.fichaService.obterPorId(id);
     }
 
@@ -36,7 +36,7 @@ export class FichaController {
     @Patch(":id")
     async atualizar(
         @Body() ficha: FichaDto,
-        @Body("id") id: string,
+        @Param("id") id: string,
     ): Promise<IFicha> {
         return await this.fichaService.atualizar(ficha, id);
     }
