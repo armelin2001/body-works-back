@@ -9,6 +9,12 @@ import { UsuarioAcademiaSchema } from "../usuario-academia/entity/usuario-academ
 import { AcessoSchema } from "../acessos/entity/acesso.schema";
 import { AcessoRepository } from "../acessos/acesso.repository";
 import { AcessoService } from "../acessos/acesso.service";
+import { FichaService } from "../ficha/ficha.service";
+import { FichaRepository } from "../ficha/ficha.repository";
+import { HistoricoTreinoService } from "../historico-treino/historico-treino.service";
+import { HistoricoTreinoRepository } from "../historico-treino/historico-treino.repository";
+import { HistoricoTreinoSchema } from "../historico-treino/entity/historico-treino.schema";
+import { FichaSchema } from "../ficha/entity/ficha.schema";
 
 @Module({
     imports: [
@@ -17,6 +23,18 @@ import { AcessoService } from "../acessos/acesso.service";
             { name: "UsuarioAcademia", schema: UsuarioAcademiaSchema },
         ]),
         DataBaseModule.forFeature([{ name: "Acesso", schema: AcessoSchema }]),
+        DataBaseModule.forFeature([
+            {
+                name: "HistoricoTreino",
+                schema: HistoricoTreinoSchema,
+            },
+        ]),
+        DataBaseModule.forFeature([
+            {
+                name: "Ficha",
+                schema: FichaSchema,
+            },
+        ]),
     ],
     controllers: [UsuarioController],
     providers: [
@@ -25,6 +43,10 @@ import { AcessoService } from "../acessos/acesso.service";
         UsuarioService,
         AcessoService,
         AcessoRepository,
+        FichaService,
+        FichaRepository,
+        HistoricoTreinoService,
+        HistoricoTreinoRepository,
     ],
 })
 export class UsuarioModule {}

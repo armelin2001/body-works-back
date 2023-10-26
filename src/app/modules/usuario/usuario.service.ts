@@ -11,6 +11,10 @@ import { AcessoRepository } from "../acessos/acesso.repository";
 import { RolesAceso } from "src/utils/constants/roles-acesso";
 import { AcessoService } from "../acessos/acesso.service";
 import { StatusPagamento } from "src/utils/constants/status-pagamento";
+import { FichaService } from "../ficha/ficha.service";
+import { HistoricoTreinoService } from "../historico-treino/historico-treino.service";
+import * as moment from "moment";
+import { HistoricoTreinoDTO } from "../historico-treino/dto/historico-treino.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -23,6 +27,10 @@ export class UsuarioService {
         private readonly acessoRepository: AcessoRepository,
         @Inject(AcessoService)
         private readonly acessoService: AcessoService,
+        @Inject(FichaService)
+        private readonly fichaService: FichaService,
+        @Inject(HistoricoTreinoService)
+        private readonly historicoTreinoService: HistoricoTreinoService,
     ) {}
 
     async login(
@@ -64,6 +72,7 @@ export class UsuarioService {
                 statusPagamento: usuario.statusPagamento,
                 idAcesso: usuario.idAcesso,
                 role: acesso.role,
+                idFicha: usuario.idFicha,
             };
             return usuarioLogin;
         } else {
@@ -176,6 +185,7 @@ export class UsuarioService {
         const usuario = await this.usuarioRepository.obterPorId(
             usuarioFicha.id,
         );
+        const ficha = await this.fichaService.obterPorId(usuarioFicha.idFicha);
         const usuarioDto: UsuarioDTO = {
             id: usuario.id,
             nome: usuario.nome,
@@ -190,6 +200,14 @@ export class UsuarioService {
             perfil: "USUARIO",
             idFicha: usuarioFicha.idFicha,
         };
+        const historicoTreino: HistoricoTreinoDTO = {
+            qtdAtualTreino: 0,
+            idFichaTreino: ficha.id,
+            ficha: ficha,
+            idUsuario: usuario.id,
+            dataTreino: moment().toDate(),
+        };
+        await this.historicoTreinoService.cadastrar(historicoTreino);
         return await this.atualizar(usuarioDto, usuarioFicha.id);
     }
 
