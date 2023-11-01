@@ -1,5 +1,3 @@
-import { IExercicio } from "../../exercicio/entity/exercicio.interface";
-
 // verificar necessidade de novos campos
 export interface ITreino {
     id?: string;
@@ -10,12 +8,11 @@ export interface ITreino {
     exercicios: IExercicioTreino[];
 }
 
-export interface IExercicioTreino extends IExercicio {
+export interface IExercicioTreino {
+    idExercicio: string;
     series: number;
     repeticoes: number[];
     carga: number[];
-    tempoDescanso: number;
-    observacoes: string;
 }
 
 export interface IComentarioTreino {
