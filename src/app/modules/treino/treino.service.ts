@@ -4,6 +4,7 @@ import { TreinoDto } from "./dto/treino.dto";
 import { IComentarioTreino, ITreino } from "./entity/treino.interface";
 import { FichaService } from "../ficha/ficha.service";
 import { ObterTreinosPorInstrutorUseCase } from "./use-cases/obter-treinos-instrutor.use-case";
+import { UsuarioRepository } from "../usuario/usuario.repository";
 
 @Injectable()
 export class TreinoService {
@@ -12,6 +13,8 @@ export class TreinoService {
         private readonly treinoRepository: TreinoRepository,
         @Inject(FichaService)
         private readonly fichaService: FichaService,
+        @Inject(UsuarioRepository)
+        private readonly usuarioRepository: UsuarioRepository,
     ) {}
 
     async cadastrar(terino: TreinoDto): Promise<ITreino> {
@@ -87,14 +90,14 @@ export class TreinoService {
             idInstrutor,
         );
 
-        const idsInstrutor: string[] = [];
+        const idsFicha: string[] = [];
 
         fichasInstrutor.forEach((ficha) => {
-            idsInstrutor.push(ficha.idInstrutor);
+            idsFicha.push(ficha.id);
         });
 
         const filtroInstrutorComentarios = {
-            idInstrutor: { $in: idsInstrutor },
+            idFicha: { $in: idsFicha },
         };
 
         const comentariosUseCase = new ObterTreinosPorInstrutorUseCase(
@@ -104,12 +107,20 @@ export class TreinoService {
 
         const comentarios = await comentariosUseCase.executar();
         const comentariosInstrutor: IComentarioTreino[] = [];
+        const usuario = await this.usuarioRepository.obterTodos();
 
         comentarios.dados.forEach((treinos) => {
             if (treinos.comentario || treinos.comentario !== "") {
+                const nomeFicha = fichasInstrutor.find(
+                    (ficha) => ficha.id === treinos.idFicha,
+                ).nome;
+                const usuarioNome = usuario.dados.find(
+                    (user) => user.id === treinos.idUsuario,
+                ).nome;
+
                 comentariosInstrutor.push({
-                    idTreino: treinos.id,
-                    idUsuario: treinos.idUsuario,
+                    treinoNome: nomeFicha,
+                    usuarioNome: usuarioNome,
                     comentario: treinos.comentario,
                     dataTreino: treinos.dataTreino,
                 });

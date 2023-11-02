@@ -12,7 +12,7 @@ import { TreinoService } from "./treino.service";
 import { IComentarioTreino, ITreino } from "./entity/treino.interface";
 import { TreinoDto } from "./dto/treino.dto";
 
-@UseGuards(LocalAuthGuard)
+//@UseGuards(LocalAuthGuard)
 @Controller("treino")
 export class TreinoController {
     constructor(private readonly treinoService: TreinoService) {}
