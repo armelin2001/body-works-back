@@ -11,4 +11,12 @@ export class FichaRepository extends RepositoryAbstract<IFicha, FichaDto> {
     ) {
         super(fichaModel);
     }
+
+    async buscaFichasPorIdInstrutor(idInstrutor: string): Promise<IFicha[]> {
+        return this.fichaModel
+            .find({
+                idInstrutor: idInstrutor,
+            })
+            .exec();
+    }
 }

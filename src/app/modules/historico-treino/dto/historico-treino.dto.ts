@@ -3,10 +3,11 @@ import {
     IsMongoId,
     IsNotEmpty,
     IsNumber,
+    IsObject,
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
-import { TipoTreino } from "../../ficha/entity/ficha.interface";
+import { IFicha, TipoTreino } from "../../ficha/entity/ficha.interface";
 import { IHistoricoTreino } from "../entity/historico-treino.interface";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -24,8 +25,13 @@ export class HistoricoTreinoDTO implements IHistoricoTreino {
 
     @ApiProperty()
     @IsString({ message: "O campo tipoAtual deve ser uma string" })
-    @IsNotEmpty({ message: "O campo tipoAtual é obrigatório" })
-    tipoAtual: TipoTreino;
+    @IsOptional()
+    tipoAtual?: TipoTreino;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsObject()
+    ficha?: IFicha;
 
     @ApiProperty()
     @IsString({ message: "O campo idFichaTreino deve ser uma string" })
