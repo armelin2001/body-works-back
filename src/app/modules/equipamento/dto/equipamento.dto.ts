@@ -1,9 +1,15 @@
-import { IsEnum, IsMongoId, IsNotEmpty, IsOptional, IsString } from "@nestjs/class-validator";
+import {
+    IsEnum,
+    IsMongoId,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+} from "@nestjs/class-validator";
 import { EquipamentoTipo, IEquipamento } from "../entity/equipamento.interface";
 import { ApiProperty } from "@nestjs/swagger";
 import { TipoEquipamento } from "src/utils/constants/tipo-equipamento";
 
-export class EquipamentoDTO implements IEquipamento{
+export class EquipamentoDTO implements IEquipamento {
     @ApiProperty()
     @IsString({ message: "O campo id deve ser uma string" })
     @IsOptional()
@@ -17,7 +23,8 @@ export class EquipamentoDTO implements IEquipamento{
 
     @ApiProperty()
     @IsString({ message: "O campo tipo deve ser uma string" })
-    @IsEnum(TipoEquipamento, { message: "O tipo do equipamento deve ser válido" })
+    @IsEnum(TipoEquipamento, {
+        message: "O tipo do equipamento deve ser válido",
+    })
     tipo: EquipamentoTipo;
-
 }
