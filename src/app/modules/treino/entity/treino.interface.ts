@@ -16,8 +16,10 @@ export interface IExercicioTreino {
 }
 
 export interface IComentarioTreino {
-    idTreino: string;
-    idUsuario: string;
+    idTreino?: string;
+    idUsuario?: string;
+    treinoNome?: string;
+    usuarioNome?: string;
     idInstrutor?: string;
     comentario: string;
     dataTreino: Date;
