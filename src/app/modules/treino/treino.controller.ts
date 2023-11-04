@@ -12,7 +12,7 @@ import { TreinoService } from "./treino.service";
 import { IComentarioTreino, ITreino } from "./entity/treino.interface";
 import { TreinoDto } from "./dto/treino.dto";
 
-//@UseGuards(LocalAuthGuard)
+@UseGuards(LocalAuthGuard)
 @Controller("treino")
 export class TreinoController {
     constructor(private readonly treinoService: TreinoService) {}
@@ -30,8 +30,15 @@ export class TreinoController {
         return await this.treinoService.obterPorId(id);
     }
 
-    @Get("usuario/comentarios/:id")
+    @Get("usuario/:id")
     async obterTreinosPorUsuario(
+        @Param("id") idUsuario: string,
+    ): Promise<ITreino[]> {
+        return await this.treinoService.obterTreinosUsuario(idUsuario);
+    }
+
+    @Get("usuario/comentarios/:id")
+    async obterTreinosComentarioPorUsuario(
         @Param("id")
         id: string,
     ): Promise<IComentarioTreino[]> {
