@@ -11,7 +11,7 @@ import { PresencaService } from "./presenca.service";
 import { PresencaDTO } from "./dto/presenca.dto";
 import { LocalAuthGuard } from "../auth/shared/local-auth.guard";
 
-//@UseGuards(LocalAuthGuard)
+@UseGuards(LocalAuthGuard)
 @Controller("presenca")
 export class PresencaController {
     constructor(private readonly presencaService: PresencaService) {}
