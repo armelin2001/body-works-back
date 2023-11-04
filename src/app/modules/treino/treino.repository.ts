@@ -20,4 +20,13 @@ export class TreinoRepository extends RepositoryAbstract<ITreino, TreinoDto> {
             .exec();
         return comentarios;
     }
+
+    async buscaTreinosPorUsuario(idUsuario: string): Promise<ITreino[]> {
+        const treinos = await this.treinoModel
+            .find({
+                idUsuario: idUsuario,
+            })
+            .exec();
+        return treinos;
+    }
 }

@@ -4,7 +4,7 @@ import { HistoricoTreinoService } from "./historico-treino.service";
 import { IHistoricoTreino } from "./entity/historico-treino.interface";
 import { HistoricoTreinoDTO } from "./dto/historico-treino.dto";
 
-@UseGuards(LocalAuthGuard)
+//@UseGuards(LocalAuthGuard)
 @Controller("historico-treino")
 export class HistoricoTreinoController {
     constructor(

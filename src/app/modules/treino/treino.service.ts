@@ -52,6 +52,21 @@ export class TreinoService {
         return await this.treinoRepository.obterTodos();
     }
 
+    async obterTreinosUsuario(idUsuario: string): Promise<ITreino[]> {
+        const treinos = await this.treinoRepository.buscaTreinosPorUsuario(
+            idUsuario,
+        );
+
+        if (!treinos) {
+            throw new HttpException(
+                "Sem treinos para o usuario informado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        return treinos;
+    }
+
     async remover(id: string): Promise<any> {
         return await this.treinoRepository.remover(id);
     }

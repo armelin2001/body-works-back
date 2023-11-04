@@ -30,8 +30,15 @@ export class TreinoController {
         return await this.treinoService.obterPorId(id);
     }
 
-    @Get("usuario/comentarios/:id")
+    @Get("usuario/:id")
     async obterTreinosPorUsuario(
+        @Param("id") idUsuario: string,
+    ): Promise<ITreino[]> {
+        return await this.treinoService.obterTreinosUsuario(idUsuario);
+    }
+
+    @Get("usuario/comentarios/:id")
+    async obterTreinosComentarioPorUsuario(
         @Param("id")
         id: string,
     ): Promise<IComentarioTreino[]> {
