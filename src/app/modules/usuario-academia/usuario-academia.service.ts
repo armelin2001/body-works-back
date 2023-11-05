@@ -23,7 +23,6 @@ export class UsuarioAcademiaService {
     }
 
     async criar(usuarioAcademia: IUsuarioAcademia) {
-        //TO-DO refatorar função (talvez um use case com default como erro)
         if (
             Number(usuarioAcademia.codigo) ===
                 Number(process.env.CODIGO_ACADEMIA) &&
@@ -44,6 +43,10 @@ export class UsuarioAcademiaService {
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         }
         if (usuarioAcademia.adm === false) {
+            await this.validarCpfEmail(
+                usuarioAcademia.email,
+                usuarioAcademia.cpf,
+            );
             const acesso = await this.acessoService.cadastrar({
                 email: usuarioAcademia.email,
                 senha: usuarioAcademia.senha,
@@ -52,6 +55,7 @@ export class UsuarioAcademiaService {
             usuarioAcademia.idAcesso = acesso.id;
             delete usuarioAcademia.senha;
             delete usuarioAcademia.email;
+            delete usuarioAcademia.id;
             return await this.usuarioAcademiaRepository.criar(usuarioAcademia);
         } else {
             throw new HttpException(

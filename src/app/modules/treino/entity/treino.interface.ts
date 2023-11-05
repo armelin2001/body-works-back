@@ -11,6 +11,7 @@ export interface ITreino {
 export interface IExercicioTreino {
     idExercicio: string;
     series: number;
+    cargaMedia?: number;
     repeticoes: number[];
     carga: number[];
 }
