@@ -14,8 +14,11 @@ export class ExercicioService {
         return await this.exercicioRepository.criar(exercicio);
     }
 
-    async atualizar(exercicio: ExercicioDTO, id: string): Promise<IExercicio> {
-        return await this.exercicioRepository.atualizar(id, exercicio);
+    async atualizar(
+        exercicio: ExercicioDTO,
+        id: string
+        ): Promise<IExercicio> {
+            return await this.exercicioRepository.atualizar(id, exercicio);
     }
 
     async obterPorId(id: string): Promise<IExercicio> {

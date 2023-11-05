@@ -1,5 +1,6 @@
 import {
     IsBoolean,
+    IsDateString,
     IsMongoId,
     IsOptional,
     IsString,
@@ -40,7 +41,7 @@ export class UsuarioAcademiaDTO implements IUsuarioAcademia {
     adm: boolean;
 
     @ApiProperty()
-    @IsString({ message: "O campo dataNascimento deve ser uma data" })
+    @IsDateString({ message: "O campo dataNascimento deve ser uma data" })
     dataNascimento: Date;
 
     @ApiProperty()

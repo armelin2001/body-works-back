@@ -34,7 +34,9 @@ export class ExercicioController {
     }
 
     @Patch(":id")
-    async atualizar(@Param("id") id: string, @Body() exercicio: ExercicioDTO) {
+    async atualizar(
+        @Param("id") id: string, @Body() exercicio: ExercicioDTO
+        ) {
         return await this.exercicioService.atualizar(exercicio, id);
     }
 
