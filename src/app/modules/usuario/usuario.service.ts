@@ -58,7 +58,7 @@ export class UsuarioService {
             if (usuario.statusPagamento === "cancelado") {
                 throw new HttpException(
                     "Usuário cancelado. Entre em contato com um supervisor da academia",
-                    HttpStatus.FORBIDDEN,
+                    HttpStatus.BAD_REQUEST,
                 );
             }
 
@@ -100,10 +100,18 @@ export class UsuarioService {
         id: string,
         statusPagamento: StatusPagamento,
     ): Promise<IUsuario> {
-        return await this.usuarioRepository.atualizarStatusPagamento(
-            id,
-            statusPagamento,
-        );
+        const usuarioPagamento =
+            await this.usuarioRepository.atualizarStatusPagamento(
+                id,
+                statusPagamento,
+            );
+        if (!usuarioPagamento) {
+            throw new HttpException(
+                "Usuário não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return usuarioPagamento;
     }
 
     async cadastrar(usuario: IUsuario): Promise<IUsuario> {
@@ -124,6 +132,12 @@ export class UsuarioService {
 
     async atualizar(usuario: UsuarioDTO, id: string): Promise<IUsuario> {
         const usuarioPorId = await this.usuarioRepository.obterPorId(id);
+        if (!usuarioPorId) {
+            throw new HttpException(
+                "Usuário não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
         if ((usuario.email || usuario.senha) && usuarioPorId) {
             const acesso = await this.acessoRepository.obterPorId(
                 usuarioPorId.idAcesso,
@@ -181,11 +195,23 @@ export class UsuarioService {
         }
     }
 
-    async salvaFicha(usuarioFicha: UsuarioFichaDto) {
+    async salvaFicha(usuarioFicha: UsuarioFichaDto): Promise<IUsuario> {
         const usuario = await this.usuarioRepository.obterPorId(
             usuarioFicha.id,
         );
+        if (!usuario) {
+            throw new HttpException(
+                "Usuario não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
         const ficha = await this.fichaService.obterPorId(usuarioFicha.idFicha);
+        if (!ficha) {
+            throw new HttpException(
+                "Ficha não encontrada",
+                HttpStatus.NOT_FOUND,
+            );
+        }
         const usuarioDto: UsuarioDTO = {
             id: usuario.id,
             nome: usuario.nome,

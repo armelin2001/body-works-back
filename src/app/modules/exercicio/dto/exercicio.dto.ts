@@ -1,8 +1,10 @@
 import {
+    IsArray,
     IsEnum,
     IsInt,
     IsMongoId,
     IsNotEmpty,
+    IsNumber,
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
@@ -57,5 +59,32 @@ export class ExercicioDTO implements IExercicio {
     @IsString({ message: "O campo musculosTrabalhados deve ser uma string" })
     @IsNotEmpty({ message: "O campo musculosTrabalhados é obrigatório" })
     musculosTrabalhados: string;
+}
 
+export class TodosExerciciosDTO {
+    @ApiProperty({
+        example: 1,
+    })
+    @IsNumber()
+    quantidade: number;
+
+    @ApiProperty({
+        example: [ExercicioDTO],
+    })
+    @IsArray()
+    dados: ExercicioDTO[];
+}
+
+export class ExercicioNaoEncontradoDTO {
+    @ApiProperty({
+        example: 404,
+    })
+    @IsNumber()
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Exercicio não encontrado",
+    })
+    @IsString()
+    message: string;
 }

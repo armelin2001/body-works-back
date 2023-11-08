@@ -48,3 +48,61 @@ export class UsuarioAcademiaDTO implements IUsuarioAcademia {
     @IsString({ message: "O campo genero deve ser uma string" })
     genero: string;
 }
+export class ListagemUsuarioAcademia {
+    @ApiProperty({
+        example: [UsuarioAcademiaDTO],
+    })
+    dados: UsuarioAcademiaDTO[];
+
+    @ApiProperty({
+        example: 1,
+    })
+    quantidade: number;
+}
+
+export class UsuarioAcademiaNaoEncontrado {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Usuário não encontrado",
+    })
+    message: string;
+}
+
+export class UsuarioAcademiaEmailJaCadastrado {
+    @ApiProperty({
+        example: 400,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Email já cadastrado",
+    })
+    message: string;
+}
+
+export class UsuarioAcademiaCpfJaCadastrado {
+    @ApiProperty({
+        example: 400,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "CPF já cadastrado",
+    })
+    message: string;
+}
+export class UsuarioAcademiaCodigoInvalidoCadastrado {
+    @ApiProperty({
+        example: 400,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Código da academia inválido",
+    })
+    message: string;
+}

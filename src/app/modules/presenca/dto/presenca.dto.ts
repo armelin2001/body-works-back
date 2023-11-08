@@ -29,3 +29,27 @@ export class PresencaDTO implements IPresenca {
     @IsDateString({ message: "O campo dataFim deve ser uma string" })
     dataFim?: Date;
 }
+
+export class ListagemPresenca {
+    @ApiProperty({
+        example: [PresencaDTO],
+    })
+    dados: PresencaDTO[];
+
+    @ApiProperty({
+        example: 1,
+    })
+    quantidade: number;
+}
+
+export class PresencaNaoEncontrada {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Presença não encontrada",
+    })
+    message: string;
+}

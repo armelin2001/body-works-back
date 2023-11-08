@@ -40,3 +40,75 @@ export class TreinoDto implements ITreino {
     @IsArray()
     exercicios: IExercicioTreino[];
 }
+export class ListagemTreino {
+    @ApiProperty({
+        example: [TreinoDto],
+    })
+    dados: TreinoDto[];
+
+    @ApiProperty({
+        example: 1,
+    })
+    quantidade: number;
+}
+
+export class TreinoNaoEncontradoDTO {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Sem treinos para o usuario informado",
+    })
+    message: string;
+}
+
+export class TreinoComentarioNaoEncontradoDTO {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Sem treinos para o usuario informado",
+    })
+    message: string;
+}
+
+export class ComentarioTreino {
+    @ApiProperty({
+        example: "64dabedafe76498bd825fa3d",
+    })
+    idTreino?: string;
+
+    @ApiProperty({
+        example: "64dabedafe76498bd825fa3d",
+    })
+    idUsuario?: string;
+
+    @ApiProperty({
+        example: "Treino pesado",
+    })
+    treinoNome?: string;
+
+    @ApiProperty({
+        example: "João",
+    })
+    usuarioNome?: string;
+
+    @ApiProperty({
+        example: "64dabedafe76498bd825fa3d",
+    })
+    idInstrutor?: string;
+
+    @ApiProperty({
+        example: "Comentarios do treino",
+    })
+    comentario: string;
+
+    @ApiProperty({
+        example: "2021-05-20T03:00:00.000Z",
+    })
+    dataTreino: Date;
+}

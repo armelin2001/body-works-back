@@ -28,3 +28,26 @@ export class EquipamentoDTO implements IEquipamento {
     })
     tipo: EquipamentoTipo;
 }
+export class ListagemEquipamentodDTO {
+    @ApiProperty({
+        example: [EquipamentoDTO],
+    })
+    dados: EquipamentoDTO[];
+
+    @ApiProperty({
+        example: 1,
+    })
+    quantidade: number;
+}
+
+export class EquipamentoNaoEncontrado {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Equipamento não encontrado",
+    })
+    message: string;
+}
