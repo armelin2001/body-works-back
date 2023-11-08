@@ -14,6 +14,7 @@ import {
     ListaUsuarioDto,
     LoginDTO,
     LoginInvalido,
+    UsuarioAtrasado,
     UsuarioComCpfCadastrado,
     UsuarioComEmailCadastrado,
     UsuarioDTO,
@@ -135,8 +136,13 @@ export class UsuarioController {
     })
     @ApiResponse({
         status: 400,
-        description: "Usuario invalido",
+        description: "Usuario com status invalido",
         type: UsuarioInvalido,
+    })
+    @ApiResponse({
+        status: 400,
+        description: "Usuario com status invalido",
+        type: UsuarioAtrasado,
     })
     @ApiResponse({
         status: 401,

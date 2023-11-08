@@ -178,3 +178,16 @@ export class UsuarioInvalido {
     })
     message: string;
 }
+
+export class UsuarioAtrasado {
+    @ApiProperty({
+        example: 400,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example:
+            "Usuário com mensalidade atrasada. Entre em contato com um supervisor da academia",
+    })
+    message: string;
+}

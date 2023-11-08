@@ -61,6 +61,12 @@ export class UsuarioService {
                     HttpStatus.BAD_REQUEST,
                 );
             }
+            if (usuario.statusPagamento === "atrasado") {
+                throw new HttpException(
+                    "Usuário com mensalidade atrasada. Entre em contato com um supervisor da academia",
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
 
             const usuarioLogin: IUsuarioLogin = {
                 id: usuario.id,
