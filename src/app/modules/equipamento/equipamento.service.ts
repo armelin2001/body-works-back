@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { EquipamentoRepository } from "./equipamento.repository";
 import { IEquipamento } from "./entity/equipamento.interface";
 import { EquipamentoDTO } from "./dto/equipamento.dto";
@@ -18,7 +18,15 @@ export class EquipamentoService {
         equipamento: EquipamentoDTO,
         id: string,
     ): Promise<IEquipamento> {
-        return await this.equipamentoRepository.atualizar(id, equipamento);
+        const equipamentoAtualizado =
+            await this.equipamentoRepository.atualizar(id, equipamento);
+        if (!equipamentoAtualizado) {
+            throw new HttpException(
+                "Equipamento não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return equipamentoAtualizado;
     }
 
     async obterPorId(id: string): Promise<IEquipamento> {
@@ -30,6 +38,15 @@ export class EquipamentoService {
     }
 
     async remover(id: string): Promise<IEquipamento> {
-        return await this.equipamentoRepository.remover(id);
+        const equipamentoRemovido = await this.equipamentoRepository.remover(
+            id,
+        );
+        if (!equipamentoRemovido) {
+            throw new HttpException(
+                "Equipamento não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return equipamentoRemovido;
     }
 }

@@ -54,3 +54,39 @@ export class HistoricoTreinoDTO implements IHistoricoTreino {
     @IsNotEmpty({ message: "O campo idTreino é obrigatório" })
     idTreino?: string;
 }
+
+export class ListagemHistoricoTreinoDTO {
+    @ApiProperty({
+        example: [HistoricoTreinoDTO],
+    })
+    dados: HistoricoTreinoDTO[];
+
+    @ApiProperty({
+        example: 1,
+    })
+    quantidade: number;
+}
+
+export class HistoricoTreinoNaoEncontrado {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "HistoricoTreino não encontrado",
+    })
+    message: string;
+}
+
+export class HistoricoNaoEncontradoUsuario {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Sem historico para o usuario informado",
+    })
+    message: string;
+}

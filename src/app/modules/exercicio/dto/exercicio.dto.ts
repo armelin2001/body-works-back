@@ -1,8 +1,10 @@
 import {
+    IsArray,
     IsEnum,
     IsInt,
     IsMongoId,
     IsNotEmpty,
+    IsNumber,
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
@@ -30,11 +32,6 @@ export class ExercicioDTO implements IExercicio {
     nome: string;
 
     @ApiProperty()
-    @IsString({ message: "O campo descricao deve ser uma string" })
-    @IsNotEmpty({ message: "O campo descricao é obrigatório" })
-    descricao: string;
-
-    @ApiProperty()
     @IsString({ message: "O campo nivelDificuldade deve ser uma string" })
     @IsEnum(TipoExercicio, {
         message: "O nivelDificuldade do equipamento deve ser válido",
@@ -54,27 +51,40 @@ export class ExercicioDTO implements IExercicio {
     nivelDificuldade: ExercicioDificuldade;
 
     @ApiProperty()
-    @IsInt({ message: "O campo tempoRecomendado deve ser um number" })
-    @IsNotEmpty({ message: "O campo tempoRecomendado é obrigatório" })
-    tempoRecomendado: number;
-
-    @ApiProperty()
     @IsString({ message: "O campo videoDemonstrativo deve ser uma string" })
     @IsNotEmpty({ message: "O campo videoDemonstrativo é obrigatório" })
     videoDemonstrativo: string;
 
     @ApiProperty()
-    @IsString({ message: "O campo instrucoesPassoAPasso deve ser uma string" })
-    @IsNotEmpty({ message: "O campo instrucoesPassoAPasso é obrigatório" })
-    instrucoesPassoAPasso: string;
-
-    @ApiProperty()
     @IsString({ message: "O campo musculosTrabalhados deve ser uma string" })
     @IsNotEmpty({ message: "O campo musculosTrabalhados é obrigatório" })
     musculosTrabalhados: string;
+}
 
-    @ApiProperty()
-    @IsString({ message: "O campo observacoes deve ser uma string" })
-    @IsNotEmpty({ message: "O campo observacoes é obrigatório" })
-    observacoes: string;
+export class TodosExerciciosDTO {
+    @ApiProperty({
+        example: 1,
+    })
+    @IsNumber()
+    quantidade: number;
+
+    @ApiProperty({
+        example: [ExercicioDTO],
+    })
+    @IsArray()
+    dados: ExercicioDTO[];
+}
+
+export class ExercicioNaoEncontradoDTO {
+    @ApiProperty({
+        example: 404,
+    })
+    @IsNumber()
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Exercicio não encontrado",
+    })
+    @IsString()
+    message: string;
 }

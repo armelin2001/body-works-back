@@ -41,7 +41,14 @@ export class FichaService {
     }
 
     async remover(id: string): Promise<any> {
-        return await this.fichaRepository.remover(id);
+        const fichaRemovida = await this.fichaRepository.remover(id);
+        if (!fichaRemovida) {
+            throw new HttpException(
+                "Ficha não encontrada",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return fichaRemovida;
     }
 
     async obterFichasPorInstrutor(idInstrutor: string): Promise<IFicha[]> {

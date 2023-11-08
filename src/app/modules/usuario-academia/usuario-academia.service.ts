@@ -3,7 +3,6 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { UsuarioAcademiaRepository } from "./usuario-academia.repository";
 import { IUsuarioAcademia } from "./entity/usuario-academia.interface";
 import { UsuarioAcademiaDTO } from "./dto/usuario-academia.dto";
-import { AcessoRepository } from "../acessos/acesso.repository";
 import { RolesAceso } from "src/utils/constants/roles-acesso";
 import { AcessoService } from "../acessos/acesso.service";
 
@@ -66,18 +65,41 @@ export class UsuarioAcademiaService {
     }
 
     async obterPorId(id: string) {
-        return await this.usuarioAcademiaRepository.obterPorId(id);
+        const usuarioAcademiaAtualizado =
+            await this.usuarioAcademiaRepository.obterPorId(id);
+        if (!usuarioAcademiaAtualizado) {
+            throw new HttpException(
+                "Usuário não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return usuarioAcademiaAtualizado;
     }
 
     async atualizar(id: string, usuarioAcademia: UsuarioAcademiaDTO) {
-        return await this.usuarioAcademiaRepository.atualizar(
-            id,
-            usuarioAcademia,
-        );
+        const usuarioAcademiaAtualizado =
+            await this.usuarioAcademiaRepository.atualizar(id, usuarioAcademia);
+        if (!usuarioAcademiaAtualizado) {
+            throw new HttpException(
+                "Usuário não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return usuarioAcademiaAtualizado;
     }
 
     async remover(id: string) {
-        return await this.usuarioAcademiaRepository.remover(id);
+        const usuarioRemovido = await this.usuarioAcademiaRepository.remover(
+            id,
+        );
+        if (!usuarioRemovido) {
+            throw new HttpException(
+                "Usuário não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        return usuarioRemovido;
     }
 
     async validarCpfEmail(email: string, cpf: string) {

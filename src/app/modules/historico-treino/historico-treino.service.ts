@@ -20,14 +20,26 @@ export class HistoricoTreinoService {
         historicoTreino: HistoricoTreinoDTO,
         id: string,
     ): Promise<IHistoricoTreino> {
-        return await this.historicoTreinoRepository.atualizar(
-            id,
-            historicoTreino,
-        );
+        const historicoAtualizado =
+            await this.historicoTreinoRepository.atualizar(id, historicoTreino);
+        if (!historicoAtualizado) {
+            throw new HttpException(
+                "Historico não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return historicoAtualizado;
     }
 
     async obterPorId(id: string): Promise<IHistoricoTreino> {
-        return await this.historicoTreinoRepository.obterPorId(id);
+        const historico = await this.historicoTreinoRepository.obterPorId(id);
+        if (!historico) {
+            throw new HttpException(
+                "Historico não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return historico;
     }
 
     async obterTodos(): Promise<{
@@ -37,8 +49,17 @@ export class HistoricoTreinoService {
         return await this.historicoTreinoRepository.obterTodos();
     }
 
-    async remover(id: string): Promise<any> {
-        return await this.historicoTreinoRepository.remover(id);
+    async remover(id: string): Promise<IHistoricoTreino> {
+        const historicoRemovido = await this.historicoTreinoRepository.remover(
+            id,
+        );
+        if (!historicoRemovido) {
+            throw new HttpException(
+                "Historico não encontrado",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+        return historicoRemovido;
     }
 
     async buscarHistoricoPorUsuario(
@@ -50,7 +71,7 @@ export class HistoricoTreinoService {
             );
         if (!historicos.length) {
             throw new HttpException(
-                "Sem registros para o usuario informado",
+                "Sem historico para o usuario informado",
                 HttpStatus.NOT_FOUND,
             );
         }
@@ -68,7 +89,7 @@ export class HistoricoTreinoService {
             );
         if (!historicosUsuario.length) {
             throw new HttpException(
-                "Sem registros para o usuario informado",
+                "Sem historico para o usuario informado",
                 HttpStatus.NOT_FOUND,
             );
         }

@@ -44,3 +44,26 @@ export class FichaDto implements IFicha {
     @IsArray()
     exercicios: IExercicioFicha[];
 }
+export class ListagemFichaDto {
+    @ApiProperty({
+        example: [FichaDto],
+    })
+    dados: FichaDto[];
+
+    @ApiProperty({
+        example: 1,
+    })
+    quantidade: number;
+}
+
+export class FichaNaoEncontrada {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Ficha não encontrada",
+    })
+    message: string;
+}
