@@ -253,7 +253,7 @@ export class UsuarioService {
         }
 
         await this.usuarioRepository.remover(id);
-        await this.acessoRepository.remover(usuario.id);
+        await this.acessoRepository.remover(usuario.idAcesso);
 
         return {
             message: "Usuário removido com sucesso!",

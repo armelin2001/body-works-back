@@ -3,7 +3,10 @@ import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UsuarioPresencaService } from "./usuario-presenca.service";
 import { IUsuarioPresenca } from "./entity/usuario-presenca.interface";
 import { UnauthorizedDTO } from "../auth/dto/auth.dto";
-import { UsuarioPresencaDTO } from "./dto/usario-presenca.dto";
+import {
+    PresencaNaoEncotrada,
+    UsuarioPresencaDTO,
+} from "./dto/usario-presenca.dto";
 
 @ApiTags("UsuarioPresenca")
 @Controller("usuario-presenca")
@@ -18,11 +21,11 @@ export class UsuarioPresencaController {
         description: "Retorna um usuario presenca",
         type: UsuarioPresencaDTO,
     })
-    /*@ApiResponse({
+    @ApiResponse({
         status: 404,
-        description: "Usuario presenca nao encontrado",
-        type: UsuarioPresencaNaoEncontrado,
-    })*/
+        description: "Presenca do usuario nao encontrada",
+        type: PresencaNaoEncotrada,
+    })
     @ApiResponse({
         status: 401,
         description: "Unauthorized",
@@ -55,11 +58,11 @@ export class UsuarioPresencaController {
         description: "Retorna usuario presenca atualizado",
         type: UsuarioPresencaDTO,
     })
-    /*@ApiResponse({
+    @ApiResponse({
         status: 404,
-        description: "Usuario presenca nao encontrado",
-        type: UsuarioPresencaNaoEncontrado,
-    })*/
+        description: "Presenca do usuario nao encontrada",
+        type: PresencaNaoEncotrada,
+    })
     @ApiResponse({
         status: 401,
         description: "Unauthorized",
