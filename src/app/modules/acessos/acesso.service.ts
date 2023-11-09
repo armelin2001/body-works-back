@@ -21,7 +21,10 @@ export class AcessoService {
         return await this.acessoRepository.obterPorId(id);
     }
 
-    async atualizar(acesso: IAcesso, id: string): Promise<IAcesso> {
+    async atualizar(id: string, acesso: IAcesso): Promise<IAcesso> {
+        const salt = Number(process.env.HASH_SECRET);
+        const hash = await bcrypt.hash(acesso.senha, salt);
+        acesso.senha = hash;
         return await this.acessoRepository.atualizar(id, acesso);
     }
 

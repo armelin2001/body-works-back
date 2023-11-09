@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+import { IUsuarioPresenca } from "../entity/usuario-presenca.interface";
 import {
     IsDateString,
     IsMongoId,
@@ -5,10 +7,8 @@ import {
     IsOptional,
     IsString,
 } from "@nestjs/class-validator";
-import { IPresenca } from "../entity/presenca.interface";
-import { ApiProperty } from "@nestjs/swagger";
 
-export class PresencaDTO implements IPresenca {
+export class UsuarioPresencaDTO implements IUsuarioPresenca {
     @ApiProperty()
     @IsString({ message: "O campo id deve ser uma string" })
     @IsOptional()
@@ -27,29 +27,6 @@ export class PresencaDTO implements IPresenca {
 
     @ApiProperty()
     @IsDateString({ message: "O campo dataFim deve ser uma string" })
-    dataFim?: Date;
-}
-
-export class ListagemPresenca {
-    @ApiProperty({
-        example: [PresencaDTO],
-    })
-    dados: PresencaDTO[];
-
-    @ApiProperty({
-        example: 1,
-    })
-    quantidade: number;
-}
-
-export class PresencaNaoEncontrada {
-    @ApiProperty({
-        example: 404,
-    })
-    statusCode: number;
-
-    @ApiProperty({
-        example: "Presença não encontrada",
-    })
-    message: string;
+    @IsNotEmpty({ message: "O campo dataInicio é obrigatório" })
+    dataFim: Date;
 }

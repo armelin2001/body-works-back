@@ -11,7 +11,7 @@ const usuarioAcademiatransform = {
     },
 };
 @Schema({
-    collection: "usuario-academia",
+    collection: "UsuarioAcademia",
     timestamps: true,
     toJSON: usuarioAcademiatransform,
     toObject: usuarioAcademiatransform,
