@@ -72,6 +72,13 @@ export class AcessoService {
             }
         });
 
+        if (!senhaValida) {
+            throw new HttpException(
+                "Usuário ou senha inválidos",
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
         if (senhaValida) {
             return acessoUsuario;
         }

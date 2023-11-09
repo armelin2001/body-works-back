@@ -21,7 +21,7 @@ export class UsuarioPresencaService {
             await this.usuarioPresencaRepository.atualizar(id, usuarioPresenca);
         if (!usuarioPresencaAtualizado) {
             throw new HttpException(
-                "Usuário não encontrado",
+                "Preseça não encontrada",
                 HttpStatus.NOT_FOUND,
             );
         }
@@ -34,7 +34,7 @@ export class UsuarioPresencaService {
         );
         if (!usuarioPresenca) {
             throw new HttpException(
-                "Usuário não encontrado",
+                "Preseça não encontrada",
                 HttpStatus.NOT_FOUND,
             );
         }

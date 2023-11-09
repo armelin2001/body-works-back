@@ -30,3 +30,14 @@ export class UsuarioPresencaDTO implements IUsuarioPresenca {
     @IsNotEmpty({ message: "O campo dataInicio é obrigatório" })
     dataFim: Date;
 }
+export class PresencaNaoEncotrada {
+    @ApiProperty({
+        example: 404,
+    })
+    statusCode: number;
+
+    @ApiProperty({
+        example: "Presença não encontrada",
+    })
+    message: string;
+}
