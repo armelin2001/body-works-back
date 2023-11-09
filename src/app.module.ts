@@ -11,7 +11,7 @@ import { AuthModule } from "./app/modules/auth/auth.moduele";
 import { FichaModule } from "./app/modules/ficha/ficha.module";
 import { HistoricoTreinoModule } from "./app/modules/historico-treino/historico-treino.module";
 import { TreinoModule } from "./app/modules/treino/treino.module";
-import { PresencaModule } from "./app/modules/presenca/presenca.module";
+import { UsuarioPresencaModule } from "./app/modules/usuario-presenca/usuario-presenca.module";
 
 @Module({
     imports: [
@@ -23,7 +23,7 @@ import { PresencaModule } from "./app/modules/presenca/presenca.module";
         ExercicioModule,
         HistoricoTreinoModule,
         TreinoModule,
-        PresencaModule,
+        UsuarioPresencaModule,
         AuthModule,
         DataBaseModule.forRoot(),
     ],

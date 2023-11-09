@@ -1,6 +1,6 @@
-export interface IPresenca {
+export interface IUsuarioPresenca {
     id?: string;
     idUsuario: string;
     dataInicio: Date;
-    dataFim?: Date;
+    dataFim: Date;
 }
