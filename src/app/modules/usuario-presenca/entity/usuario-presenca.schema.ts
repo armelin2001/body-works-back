@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IUsuarioPresenca } from "./usuario-presenca.interface";
 
-@Schema({ collection: "usuario-presenca" })
+@Schema({ collection: "UsuarioPresenca" })
 export class UsuarioPresencaDB implements IUsuarioPresenca {
     @Prop({ required: true })
     idUsuario: string;
