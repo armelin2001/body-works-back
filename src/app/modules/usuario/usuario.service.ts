@@ -149,8 +149,16 @@ export class UsuarioService {
                 usuarioPorId.idAcesso,
             );
 
+            if (usuario.senha) {
+                await this.acessoService.atualizar(acesso.id, {
+                    email: usuarioPorId.email,
+                    senha: usuario.senha,
+                    role: RolesAceso.usuario,
+                });
+            }
+
             if (usuario.email && usuario.senha) {
-                await this.acessoRepository.atualizar(acesso.id, {
+                await this.acessoService.atualizar(acesso.id, {
                     email: usuario.email,
                     senha: usuario.senha,
                     role: RolesAceso.usuario,
@@ -161,14 +169,6 @@ export class UsuarioService {
                 await this.acessoRepository.atualizar(acesso.id, {
                     email: usuario.email,
                     senha: usuarioPorId.senha,
-                    role: RolesAceso.usuario,
-                });
-            }
-
-            if (usuario.senha) {
-                await this.acessoRepository.atualizar(acesso.id, {
-                    email: usuarioPorId.email,
-                    senha: usuario.senha,
                     role: RolesAceso.usuario,
                 });
             }
